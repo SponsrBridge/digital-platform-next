@@ -2,9 +2,12 @@ import type { Metadata } from 'next';
 import InsightsPageContent from '@/components/insights/InsightsPageContent';
 import { getFeaturedPost, getPosts, getPostCount } from '@/lib/queries';
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
-  title: 'Insights & Perspectives — SponsrBridge',
+  title: 'Insights & Perspectives',
   description: 'Practical strategies, market intelligence, and expert perspectives on building predictable sponsorship revenue for B2B conferences.',
+  alternates: { canonical: '/insights' },
 };
 
 function formatDate(dateString: string): string {
