@@ -83,7 +83,6 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
-          <LiveChat />
         </Providers>
       </body>
     </html>
