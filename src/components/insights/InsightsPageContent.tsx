@@ -17,7 +17,7 @@ interface ArticleData {
 }
 
 interface InsightsPageContentProps {
-  initialFeatured: ArticleData;
+  initialFeatured: ArticleData | null;
   initialArticles: ArticleData[];
   totalCount: number;
 }
@@ -124,56 +124,58 @@ const InsightsPageContent: React.FC<InsightsPageContentProps> = ({
         </div>
       </section>
 
-      <section className="py-12 md:py-16 relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-24">
-          <div className="flex items-center gap-2 mb-6">
-            <div className="w-1 h-4 bg-brand-teal rounded-full" />
-            <span className="text-brand-teal text-xs font-bold uppercase tracking-widest">Latest Article</span>
-          </div>
+      {initialFeatured && (
+        <section className="py-12 md:py-16 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-24">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="w-1 h-4 bg-brand-teal rounded-full" />
+              <span className="text-brand-teal text-xs font-bold uppercase tracking-widest">Latest Article</span>
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            onClick={() => initialFeatured.slug ? router.push(`/insights/${initialFeatured.slug}`) : scrollToSubscribe()}
-            className="group relative bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-teal/50 transition-all duration-300 shadow-2xl cursor-pointer"
-          >
-            <div className="grid lg:grid-cols-2">
-              <div className="relative h-64 lg:h-auto overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${initialFeatured.image})` }}
-                />
-                <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors duration-300" />
-              </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              onClick={() => initialFeatured.slug ? router.push(`/insights/${initialFeatured.slug}`) : scrollToSubscribe()}
+              className="group relative bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-teal/50 transition-all duration-300 shadow-2xl cursor-pointer"
+            >
+              <div className="grid lg:grid-cols-2">
+                <div className="relative h-64 lg:h-auto overflow-hidden">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${initialFeatured.image})` }}
+                  />
+                  <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors duration-300" />
+                </div>
 
-              <div className="p-8 md:p-12 flex flex-col justify-center">
-                <div className="flex flex-wrap items-center gap-4 mb-6">
-                  <span className="px-3 py-1 bg-brand-teal/10 text-brand-teal text-xs font-bold rounded-full border border-brand-teal/20">
-                    {initialFeatured.tag}
-                  </span>
-                  <div className="flex items-center gap-4 text-xs text-brand-muted font-medium">
-                    <span className="flex items-center gap-1.5"><Calendar size={14} /> {initialFeatured.date}</span>
-                    <span className="flex items-center gap-1.5"><Clock size={14} /> {initialFeatured.readTime}</span>
+                <div className="p-8 md:p-12 flex flex-col justify-center">
+                  <div className="flex flex-wrap items-center gap-4 mb-6">
+                    <span className="px-3 py-1 bg-brand-teal/10 text-brand-teal text-xs font-bold rounded-full border border-brand-teal/20">
+                      {initialFeatured.tag}
+                    </span>
+                    <div className="flex items-center gap-4 text-xs text-brand-muted font-medium">
+                      <span className="flex items-center gap-1.5"><Calendar size={14} /> {initialFeatured.date}</span>
+                      <span className="flex items-center gap-1.5"><Clock size={14} /> {initialFeatured.readTime}</span>
+                    </div>
+                  </div>
+
+                  <h2 className="text-2xl md:text-3xl font-bold text-brand-white mb-4 leading-tight group-hover:text-brand-teal transition-colors">
+                    {initialFeatured.title}
+                  </h2>
+
+                  <p className="text-brand-text mb-8 leading-relaxed line-clamp-3 md:line-clamp-none">
+                    {initialFeatured.excerpt}
+                  </p>
+
+                  <div className="flex items-center text-brand-teal font-bold text-sm uppercase tracking-wide group/btn mt-auto">
+                    Read Article <ArrowRight size={16} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
                   </div>
                 </div>
-
-                <h2 className="text-2xl md:text-3xl font-bold text-brand-white mb-4 leading-tight group-hover:text-brand-teal transition-colors">
-                  {initialFeatured.title}
-                </h2>
-
-                <p className="text-brand-text mb-8 leading-relaxed line-clamp-3 md:line-clamp-none">
-                  {initialFeatured.excerpt}
-                </p>
-
-                <div className="flex items-center text-brand-teal font-bold text-sm uppercase tracking-wide group/btn mt-auto">
-                  Read Article <ArrowRight size={16} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                </div>
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       <section className="py-12 md:py-16 bg-brand-navy relative z-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-24">
