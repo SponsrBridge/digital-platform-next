@@ -3,22 +3,15 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { ArrowRight, Plus, Minus, Send } from 'lucide-react';
-import { Article, FAQItem } from '@/types';
+import { Article } from '@/types';
+import { faqs } from '@/lib/faq-data';
 
 const fallbackArticles: Article[] = [
   { title: "Why Generic Sponsorship Packages Are Costing You Revenue", excerpt: "Stop selling logos. Start selling outcomes.", readTime: "5 min read", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600" },
   { title: "The Global Conference Sponsorship Landscape: 2025 Trends", excerpt: "Data-driven insights into where budgets are shifting.", readTime: "8 min read", image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=600" },
   { title: "From Transactional to Strategic Relationships", excerpt: "Building a sponsorship model that compounds over time.", readTime: "6 min read", image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=600" },
-];
-
-const faqs: FAQItem[] = [
-  { question: "How quickly can we expect to see results?", answer: "Most engagements begin generating sponsor conversations within 45–60 days, with a fully active pipeline established by 90 days. Meaningful revenue uplift is typically seen within the first 6 months." },
-  { question: "What information do you need to get started?", answer: "We typically review historical sponsorship performance, attendee profile, and event timeline. The discovery phase usually requires 3–4 hours of your team's time over two weeks." },
-  { question: "How do you charge for your services?", answer: "Full-service partnerships combine a performance-based fee (percentage of secured revenue) with a modest monthly retainer. Advisory engagements are retainer-based. All pricing is transparent with no hidden fees." },
-  { question: "What makes SponsrBridge different from hiring internally?", answer: "We provide immediate access to a proven sales system, established sponsor relationships, and market intelligence. We mitigate key-person risk and operate with performance-aligned pricing." },
-  { question: "What size conferences do you work with?", answer: "We typically work with B2B conferences ranging from 200 to 5,000 attendees, with annual sponsorship revenue potential between $100k and $2M." },
-  { question: "How involved will we need to be?", answer: "Your involvement varies by model. Full-service requires minimal input beyond pipeline reviews. Sales partnerships need light weekly coordination." },
 ];
 
 const containerVariants = {
@@ -79,10 +72,12 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({ articles = fal
               className="group cursor-pointer"
             >
               <div className="overflow-hidden rounded-xl mb-6 h-52 relative">
-                <img
-                  src={article.image}
+                <Image
+                  src={article.image || ''}
                   alt={article.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors" />
               </div>

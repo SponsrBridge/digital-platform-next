@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, Calendar, User } from 'lucide-react';
+import Image from 'next/image';
 import { PortableText } from '@portabletext/react';
 
 function formatDate(dateString: string): string {
@@ -50,11 +51,15 @@ const portableTextComponents = {
       if (!value?.asset?.url) return null;
       return (
         <figure className="my-8">
-          <img
-            src={value.asset.url}
-            alt={value.alt || ''}
-            className="w-full rounded-xl border border-brand-border"
-          />
+          <div className="relative w-full aspect-video">
+            <Image
+              src={value.asset.url}
+              alt={value.alt || ''}
+              fill
+              className="rounded-xl border border-brand-border object-cover"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+          </div>
           {value.caption && (
             <figcaption className="text-sm text-brand-muted mt-3 text-center italic">{value.caption}</figcaption>
           )}
@@ -132,11 +137,16 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="container mx-auto px-4 sm:px-6 lg:px-24 max-w-4xl mb-12"
         >
-          <img
-            src={post.image}
-            alt={post.title}
-            className="w-full rounded-xl border border-brand-border object-cover max-h-[500px]"
-          />
+          <div className="relative w-full aspect-[2/1] max-h-[500px]">
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              className="rounded-xl border border-brand-border object-cover"
+              sizes="(max-width: 768px) 100vw, 800px"
+              priority
+            />
+          </div>
         </motion.div>
       )}
 
