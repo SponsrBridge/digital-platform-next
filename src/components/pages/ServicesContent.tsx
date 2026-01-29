@@ -164,7 +164,7 @@ const ServicesContent: React.FC = () => {
     { id: 2, title: "Proposal", desc: "We develop a tailored proposal outlining the recommended engagement model, scope, deliverables, timeline, and commercial terms.", outcome: "Clear agreement on structure" },
     { id: 3, title: "Onboarding", desc: "Structured kickoff to immerse our team in your brand, audience, and commercial context. We gather all needed info to hit the ground running.", outcome: "Team fully briefed & ready" },
     { id: 4, title: "Execution", desc: "Active delivery against the agreed scope — whether full ownership, sales execution, or advisory. Transparent progress tracking throughout.", outcome: "Revenue growth & development" },
-    { id: 5, title: "Reporting", desc: "Ongoing visibility into performance with structured reporting cadences. You always know where revenue stands and what's in the pipeline.", outcome: "Complete transparency" },
+    { id: 5, title: "Reporting", desc: "Ongoing visibility into performance with structured reporting cadences. You always know where revenue stands and what's in the pipeline.", outcome: "Complete\ntransparency" },
   ];
 
   return (
@@ -212,7 +212,7 @@ const ServicesContent: React.FC = () => {
                 onClick={() => scrollToSection(card.id)}
               >
                 <div className="w-12 h-12 bg-brand-navy border border-brand-border rounded-lg flex items-center justify-center mb-4 group-hover:bg-brand-teal group-hover:text-brand-navy transition-colors">
-                  <card.icon size={24} className={card.id === 'model-01' ? 'text-brand-teal' : 'text-brand-white group-hover:text-brand-navy'} />
+                  <card.icon size={24} className={'text-brand-white group-hover:text-brand-navy'} />
                 </div>
                 <h3 className="text-xl font-bold text-brand-white mb-3">{card.title}</h3>
                 <p className="text-sm text-brand-muted mb-6 flex-grow">{card.desc}</p>
@@ -551,7 +551,7 @@ const ServicesContent: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.2 }}
-                  className="relative z-10 flex flex-col lg:items-center lg:text-center"
+                  className="relative z-10 flex flex-col lg:items-center lg:text-center h-full"
                 >
                   <div className="w-16 h-16 bg-brand-navy border-2 border-brand-teal rounded-full flex items-center justify-center text-xl font-bold text-brand-white mb-6 shadow-lg">
                     {step.id}
@@ -559,8 +559,8 @@ const ServicesContent: React.FC = () => {
                   <h3 className="text-lg font-bold text-brand-white mb-2">{step.title}</h3>
                   <p className="text-xs text-brand-teal font-bold uppercase mb-3">{step.duration || "Phase " + step.id}</p>
                   <p className="text-sm text-brand-muted mb-4">{step.desc}</p>
-                  <div className="mt-auto bg-brand-card/50 p-3 rounded border border-brand-border text-xs text-brand-white w-full">
-                    <span className="text-brand-teal font-bold">Outcome:</span> {step.outcome}
+                  <div className="mt-auto bg-brand-card/50 p-6 rounded border border-brand-border text-xs text-brand-white w-full min-h-[72px] flex items-center justify-center">
+                    <span className="text-brand-teal font-bold text-center w-40 capitalize line-clamp-2 min-h-[2lh]">{step.outcome}</span>
                   </div>
                 </motion.div>
               ))}

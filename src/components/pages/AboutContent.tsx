@@ -230,7 +230,7 @@ const PhilosophyItem: React.FC<PhilosophyItemProps> = ({ belief, index }) => {
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-16 items-center`}
     >
-      <div className="md:w-1/2 flex justify-center relative h-64 md:h-80 w-full">
+      <div className="md:w-1/2 flex justify-center relative h-64 w-full">
         <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
           <motion.div
             style={{ y }}
@@ -241,20 +241,17 @@ const PhilosophyItem: React.FC<PhilosophyItemProps> = ({ belief, index }) => {
         </div>
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="relative z-10 bg-brand-card/80 border border-brand-border p-8 rounded-2xl shadow-xl max-w-md backdrop-blur-md flex flex-col justify-center h-full w-full md:w-auto"
+          className="relative z-10 bg-brand-card/80 border border-brand-border p-4 rounded-2xl shadow-xl max-w-md backdrop-blur-md flex flex-col items-center justify-center h-full w-full md:w-auto"
         >
           {index === 0 && <Layers className="w-12 h-12 text-brand-teal mb-4" />}
           {index === 1 && <Handshake className="w-12 h-12 text-brand-blue mb-4" />}
           {index === 2 && <Award className="w-12 h-12 text-brand-teal mb-4" />}
           {index === 3 && <Eye className="w-12 h-12 text-brand-blue mb-4" />}
           {index === 4 && <TrendingUp className="w-12 h-12 text-brand-teal mb-4" />}
-          <h3 className="text-xl font-bold text-brand-white">{belief.title}</h3>
+          <h3 className="text-xl font-bold text-brand-white text-center px-8">{belief.title}</h3>
         </motion.div>
       </div>
       <div className="md:w-1/2">
-        <h3 className={`text-2xl md:text-3xl font-bold text-brand-white mb-4 ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'} hidden md:block`}>
-          {belief.title}
-        </h3>
         <p className={`text-brand-text text-lg leading-relaxed ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
           {belief.desc}
         </p>
@@ -459,26 +456,25 @@ const AboutContent: React.FC = () => {
             <p className="text-brand-text mb-8">Traditional sponsorship support models are broken. Here's how SponsrBridge is different.</p>
 
             {/* Toggle */}
-            <div className="inline-flex bg-brand-navy p-1 rounded-full border border-brand-border mb-12 relative">
+            <div className="inline-grid grid-cols-2 bg-brand-navy p-1 rounded-full border border-brand-border mb-12 relative">
               <motion.div
                 className="absolute h-[calc(100%-8px)] top-1 rounded-full bg-brand-teal"
                 initial={false}
                 animate={{
                   left: activeDiff === 'traditional' ? '4px' : '50%',
-                  width: activeDiff === 'traditional' ? 'calc(50% - 4px)' : 'calc(50% - 4px)',
-                  x: activeDiff === 'sponsrbridge' ? 0 : 0
+                  width: 'calc(50% - 4px)',
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
               <button
                 onClick={() => setActiveDiff('traditional')}
-                className={`px-6 py-3 rounded-full text-sm font-bold transition-colors relative z-10 ${activeDiff === 'traditional' ? 'text-brand-navy' : 'text-brand-muted hover:text-brand-white'}`}
+                className={`px-4 md:px-6 py-3 rounded-full text-sm font-bold transition-colors relative z-10 whitespace-nowrap ${activeDiff === 'traditional' ? 'text-brand-navy' : 'text-brand-muted hover:text-brand-white'}`}
               >
                 The Old Way
               </button>
               <button
                 onClick={() => setActiveDiff('sponsrbridge')}
-                className={`px-6 py-3 rounded-full text-sm font-bold transition-colors relative z-10 ${activeDiff === 'sponsrbridge' ? 'text-brand-navy' : 'text-brand-muted hover:text-brand-white'}`}
+                className={`px-4 md:px-6 py-3 rounded-full text-sm font-bold transition-colors relative z-10 whitespace-nowrap ${activeDiff === 'sponsrbridge' ? 'text-brand-navy' : 'text-brand-muted hover:text-brand-white'}`}
               >
                 The SponsrBridge Way
               </button>

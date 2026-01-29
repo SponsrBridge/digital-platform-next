@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, ArrowRight, Loader2, CheckCircle2, X } from 'lucide-react';
 import BookingFlow from '@/components/home/BookingFlow';
+import { useTheme } from '@/components/providers/ThemeProvider';
 
 const AbstractBackground = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -31,13 +32,37 @@ const AbstractBackground = () => (
 
 const ContactContent: React.FC = () => {
   const router = useRouter();
-  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const { isDark } = useTheme();
+  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    message: '',
+    honeypot: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState('submitting');
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setFormState('success');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error('Failed to send');
+      setFormState('success');
+    } catch {
+      setFormState('error');
+    }
   };
 
   const containerVariants = {
@@ -136,52 +161,15 @@ const ContactContent: React.FC = () => {
               viewport={{ once: true }}
               className="lg:col-span-6"
             >
-              <div className="bg-brand-card p-8 md:p-12 rounded-3xl border border-brand-border shadow-2xl relative overflow-hidden">
-                <AnimatePresence mode="wait">
-                  {formState === 'success' ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-12"
-                    >
-                      <div className="w-20 h-20 bg-brand-teal/10 rounded-full flex items-center justify-center mx-auto mb-6 text-brand-teal border border-brand-teal/30 shadow-[0_0_30px_rgba(var(--accent-rgb),0.1)]">
-                        <CheckCircle2 size={40} />
-                      </div>
-                      <h3 className="text-3xl font-bold text-brand-white mb-4">Message Sent Successfully</h3>
-                      <p className="text-brand-text mb-8 max-w-sm mx-auto">Thank you for reaching out. We&apos;ve received your message and will be in touch within one business day.</p>
-                      <button onClick={() => router.push('/')} className="inline-flex items-center gap-2 text-brand-teal font-bold hover:underline">
-                        Return to Homepage <ArrowRight size={18} />
-                      </button>
-                    </motion.div>
-                  ) : (
-                    <motion.div key="form">
-                      <h3 className="text-2xl font-bold text-brand-white mb-8">Send Us a Message</h3>
-                      <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-                          <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-widest font-bold text-brand-muted">First Name *</label>
-                            <input required type="text" className="w-full bg-brand-navy border border-brand-border rounded-xl px-4 py-3 text-brand-white focus:border-brand-teal focus:outline-none transition-colors" placeholder="First Name" />
-                          </div>
-                          <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-widest font-bold text-brand-muted">Last Name *</label>
-                            <input required type="text" className="w-full bg-brand-navy border border-brand-border rounded-xl px-4 py-3 text-brand-white focus:border-brand-teal focus:outline-none transition-colors" placeholder="Last Name" />
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-[10px] uppercase tracking-widest font-bold text-brand-muted">Message *</label>
-                          <textarea required rows={4} className="w-full bg-brand-navy border border-brand-border rounded-xl px-4 py-3 text-brand-white focus:border-brand-teal focus:outline-none transition-colors resize-y" placeholder="Tell us about your conference and how we can help..."></textarea>
-                        </div>
-                        <button
-                          disabled={formState === 'submitting'}
-                          className="w-full bg-brand-teal text-brand-navy font-bold py-4 rounded-xl hover:brightness-90 transition-all flex items-center justify-center gap-2"
-                        >
-                          {formState === 'submitting' ? <Loader2 size={20} className="animate-spin" /> : 'Send Message'}
-                        </button>
-                      </form>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+              <div className="h-[400px] md:h-full min-h-[400px] rounded-3xl overflow-hidden border border-brand-border bg-brand-navy relative shadow-2xl">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2838.5!2d-106.9561!3d44.7977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s1309+Coffeen+Avenue+STE+1200%2C+Sheridan%2C+WY+82801!5e0!3m2!1sen!2sus"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, ...(isDark ? { filter: 'invert(90%) hue-rotate(180deg)' } : {}) }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                ></iframe>
               </div>
             </motion.div>
           </div>
@@ -190,16 +178,75 @@ const ContactContent: React.FC = () => {
 
       <section className="py-24 bg-brand-section/30 relative z-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-24">
-          <div className="h-[400px] md:h-[500px] rounded-3xl overflow-hidden border border-brand-border bg-brand-navy relative shadow-2xl">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2838.5!2d-106.9561!3d44.7977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s1309+Coffeen+Avenue+STE+1200%2C+Sheridan%2C+WY+82801!5e0!3m2!1sen!2sus"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen={true}
-              loading="lazy"
-            ></iframe>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto"
+          >
+            <div className="bg-brand-card p-8 md:p-12 rounded-3xl border border-brand-border shadow-2xl relative overflow-hidden">
+              <AnimatePresence mode="wait">
+                {formState === 'success' ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-12"
+                  >
+                    <div className="w-20 h-20 bg-brand-teal/10 rounded-full flex items-center justify-center mx-auto mb-6 text-brand-teal border border-brand-teal/30 shadow-[0_0_30px_rgba(var(--accent-rgb),0.1)]">
+                      <CheckCircle2 size={40} />
+                    </div>
+                    <h3 className="text-3xl font-bold text-brand-white mb-4">Message Sent Successfully</h3>
+                    <p className="text-brand-text mb-8 max-w-sm mx-auto">Thank you for reaching out. We&apos;ve received your message and will be in touch within one business day.</p>
+                    <button onClick={() => router.push('/')} className="inline-flex items-center gap-2 text-brand-teal font-bold hover:underline">
+                      Return to Homepage <ArrowRight size={18} />
+                    </button>
+                  </motion.div>
+                ) : (
+                  <motion.div key="form">
+                    <h3 className="text-2xl font-bold text-brand-white mb-8">Send Us a Message</h3>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      {/* Honeypot — hidden from real users, bots will fill it */}
+                      <input type="text" name="honeypot" value={formData.honeypot} onChange={handleChange} className="hidden" tabIndex={-1} autoComplete="off" />
+                      <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest font-bold text-brand-muted">First Name *</label>
+                          <input required type="text" name="firstName" value={formData.firstName} onChange={handleChange} className="w-full bg-brand-navy border border-brand-border rounded-xl px-4 py-3 text-brand-white focus:border-brand-teal focus:outline-none transition-colors" placeholder="First Name" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest font-bold text-brand-muted">Last Name *</label>
+                          <input required type="text" name="lastName" value={formData.lastName} onChange={handleChange} className="w-full bg-brand-navy border border-brand-border rounded-xl px-4 py-3 text-brand-white focus:border-brand-teal focus:outline-none transition-colors" placeholder="Last Name" />
+                        </div>
+                      </div>
+                      <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest font-bold text-brand-muted">Email *</label>
+                          <input required type="email" name="email" value={formData.email} onChange={handleChange} className="w-full bg-brand-navy border border-brand-border rounded-xl px-4 py-3 text-brand-white focus:border-brand-teal focus:outline-none transition-colors" placeholder="you@example.com" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest font-bold text-brand-muted">Phone Number</label>
+                          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full bg-brand-navy border border-brand-border rounded-xl px-4 py-3 text-brand-white focus:border-brand-teal focus:outline-none transition-colors" placeholder="Enter your phone number" />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase tracking-widest font-bold text-brand-muted">Message *</label>
+                        <textarea required rows={4} name="message" value={formData.message} onChange={handleChange} className="w-full bg-brand-navy border border-brand-border rounded-xl px-4 py-3 text-brand-white focus:border-brand-teal focus:outline-none transition-colors resize-y" placeholder="Tell us about your conference and how we can help..."></textarea>
+                      </div>
+                      {formState === 'error' && (
+                        <p className="text-brand-error text-sm">Something went wrong. Please try again or email us directly.</p>
+                      )}
+                      <button
+                        disabled={formState === 'submitting'}
+                        className="w-full bg-brand-teal text-brand-navy font-bold py-4 rounded-xl hover:brightness-90 transition-all flex items-center justify-center gap-2"
+                      >
+                        {formState === 'submitting' ? <Loader2 size={20} className="animate-spin" /> : 'Send Message'}
+                      </button>
+                    </form>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>
