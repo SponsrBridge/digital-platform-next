@@ -6,11 +6,13 @@ import Link from 'next/link';
 import { Linkedin, Twitter } from 'lucide-react';
 import Logo from './Logo';
 import { useLenis } from '@/components/providers/SmoothScrollProvider';
+import { useTheme } from '@/components/providers/ThemeProvider';
 
 const Footer: React.FC = () => {
   const lenis = useLenis();
   const router = useRouter();
   const pathname = usePathname();
+  const { isDark } = useTheme();
 
   const scrollToHash = (hash: string) => {
     if (lenis) {
@@ -111,7 +113,19 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-brand-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-brand-muted">
-          <p>&copy; 2025 SponsrBridge LLC. All rights reserved.</p>
+          <div className="flex items-center gap-2">
+            <p>&copy; {new Date().getFullYear()} SponsrBridge LLC. All rights reserved.</p>
+          </div>
+          <span className="flex items-center tracking-widest text-[10px] gap-2">
+            FORGED BY
+            <a href="https://focaldive.io" target="_blank" rel="noopener noreferrer">
+              <img
+                src={isDark ? '/images/fd-dark.png' : '/images/fd-light.png'}
+                alt="FocalDive"
+                className="h-5 inline-block hover:opacity-80 transition-opacity"
+              />
+            </a>
+          </span>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-brand-text">Privacy</Link>
             <Link href="/privacy" className="hover:text-brand-text">Cookies</Link>
