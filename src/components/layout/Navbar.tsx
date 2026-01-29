@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
               key={item.label}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.href)}
-              className={`text-sm font-medium transition-colors relative group ${isActive(item.href)
+              className={`text-xs font-medium uppercase transition-colors relative group ${isActive(item.href)
                 ? 'text-brand-teal'
                 : 'text-brand-text hover:text-brand-teal'
                 }`}
@@ -118,9 +118,9 @@ const Navbar: React.FC = () => {
             onClick={(e) => handleNavClick(e, '/contact')}
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(var(--accent-rgb),0.4)" }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 py-2.5 bg-brand-teal text-brand-navy font-bold rounded-lg transition-colors whitespace-nowrap"
+            className="px-6 py-2.5 bg-brand-teal text-brand-navy font-semibold tracking-tighter  rounded-lg transition-colors whitespace-nowrap"
           >
-            Book a Call
+            Book Call
           </motion.a>
         </div>
 
