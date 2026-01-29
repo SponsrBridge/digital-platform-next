@@ -1,4 +1,4 @@
-import { sanityClient, isSanityConfigured } from './sanity';
+import { sanityClient, isSanityConfigured } from "./sanity";
 
 const postFields = `
   _id,
@@ -18,7 +18,7 @@ export async function getFeaturedPost() {
   return sanityClient.fetch(
     `*[_type == "post" && isFeatured == true] | order(publishedAt desc)[0] {
       ${postFields}
-    }`
+    }`,
   );
 }
 
@@ -27,7 +27,7 @@ export async function getPosts(limit = 6, offset = 0) {
   return sanityClient.fetch(
     `*[_type == "post" && isFeatured != true] | order(publishedAt desc)[${offset}...${offset + limit}] {
       ${postFields}
-    }`
+    }`,
   );
 }
 
@@ -36,15 +36,13 @@ export async function getLatestPosts(limit = 3) {
   return sanityClient.fetch(
     `*[_type == "post"] | order(publishedAt desc)[0...${limit}] {
       ${postFields}
-    }`
+    }`,
   );
 }
 
 export async function getPostCount() {
   if (!isSanityConfigured || !sanityClient) return 0;
-  return sanityClient.fetch(
-    `count(*[_type == "post" && isFeatured != true])`
-  );
+  return sanityClient.fetch(`count(*[_type == "post" && isFeatured != true])`);
 }
 
 export async function getPostBySlug(slug: string) {
@@ -54,13 +52,13 @@ export async function getPostBySlug(slug: string) {
       ${postFields},
       body
     }`,
-    { slug }
+    { slug },
   );
 }
 
 export async function getAllPostSlugs() {
   if (!isSanityConfigured || !sanityClient) return [];
   return sanityClient.fetch(
-    `*[_type == "post" && defined(slug.current)]{ "slug": slug.current }`
+    `*[_type == "post" && defined(slug.current)]{ "slug": slug.current }`,
   );
 }
