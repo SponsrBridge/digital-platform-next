@@ -46,7 +46,7 @@ const processSteps: StepItem[] = [
   },
   {
     id: 4,
-    title: "Relationship Mgmt",
+    title: "Relationship Management",
     purpose: "Protect revenue & drive renewals",
     items: ["Onboarding & delivery", "Post-event reporting", "Expansion conversations"],
     deliverable: "Long-term Relationships"
@@ -54,7 +54,7 @@ const processSteps: StepItem[] = [
 ];
 
 const whyUs = [
-  { icon: Globe, title: "Global Market Expertise", desc: "Deep knowledge of B2B conference markets across NA, Europe, and APAC." },
+  { icon: Globe, title: "Global Market Expertise", desc: "Deep knowledge of B2B conference markets across North America, Europe, and APAC." },
   { icon: BookOpen, title: "Proven Methodology", desc: "Repeatable approach refined through hundreds of engagements." },
   { icon: Handshake, title: "Dedicated Ownership", desc: "No rotating teams. Dedicated commercial partners." },
   { icon: BarChart, title: "Complete Transparency", desc: "Full visibility into pipeline and revenue forecasts." },
@@ -182,7 +182,7 @@ const PhaseVisual = ({ stepId }: { stepId: number }) => {
             </motion.div>
           </div>
         );
-      case 4: // Relationship Mgmt
+      case 4: // Relationship Management
         return (
           <div className="relative w-full h-full flex items-center justify-center">
             <motion.div
@@ -337,6 +337,7 @@ export const ProcessSection: React.FC = () => {
         <SectionHeading
           title="How SponsrBridge Works"
           subtitle="A four-phase operating model designed to produce predictable revenue."
+          center={true}
         />
 
         <div className="flex flex-col lg:flex-row gap-8 mt-12">
@@ -349,8 +350,8 @@ export const ProcessSection: React.FC = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={`flex items-center gap-4 p-4 rounded-lg border text-left transition-all min-w-[260px] lg:min-w-0 ${activeStep === step.id
-                    ? 'bg-brand-card border-brand-teal shadow-[0_0_15px_rgba(var(--accent-rgb),0.1)]'
-                    : 'bg-transparent border-brand-border hover:border-brand-muted'
+                  ? 'bg-brand-card border-brand-teal shadow-[0_0_15px_rgba(var(--accent-rgb),0.1)]'
+                  : 'bg-transparent border-brand-border hover:border-brand-muted'
                   }`}
               >
                 <span className={`text-2xl font-bold ${activeStep === step.id ? 'text-brand-teal' : 'text-brand-muted'}`}>

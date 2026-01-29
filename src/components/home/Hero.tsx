@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowDown, CheckCircle, TrendingUp, Users, Target, FileText, X } from 'lucide-react';
-import BookingFlow from './BookingFlow';
+import { ArrowDown, CheckCircle, TrendingUp, Users, Target, FileText } from 'lucide-react';
 import { useLenis } from '@/components/providers/SmoothScrollProvider';
 
 const WaveBackground: React.FC = () => {
@@ -147,7 +146,6 @@ const Hero: React.FC = () => {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   const phrases = ["Sponsorship Engine", "Revenue Architecture", "Commercial Blueprint"];
   const longestPhrase = "Commercial Blueprint";
@@ -194,7 +192,7 @@ const Hero: React.FC = () => {
       <WaveBackground />
       <div className="container mx-auto px-4 sm:px-6 lg:px-24 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center h-full">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="lg:col-span-3 space-y-8">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight leading-[1] text-brand-white">
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1] text-brand-white">
             <span className="block mb-1 lg:mb-0">The</span>
             <span className="relative inline-grid grid-cols-1 grid-rows-1">
               <span className="invisible row-start-1 col-start-1 h-0 lg:h-auto whitespace-nowrap">{longestPhrase}</span>
@@ -202,12 +200,25 @@ const Hero: React.FC = () => {
             </span>
             <br />Behind <br className="hidden lg:block" /><span className="gradient-text">High-Performing B2B Conferences</span>
           </h1>
-          <p className="text-lg text-brand-text leading-relaxed max-w-2xl font-light tracking-tight">
+          <p className="text-md md:text-lg text-brand-text leading-relaxed max-w-2xl font-light tracking-tight">
             SponsrBridge operates as your embedded sponsorship team, owning strategy, sales execution, and relationships under a single commercial mandate.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <motion.button
-              onClick={() => setIsBookingModalOpen(true)}
+              onClick={(e: React.MouseEvent) => {
+                e.preventDefault();
+                if (lenis) {
+                  lenis.scrollTo('#contact', { offset: -100 });
+                } else {
+                  const element = document.getElementById('contact');
+                  if (element) {
+                    const headerOffset = 100;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                  }
+                }
+              }}
               whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(var(--accent-rgb),0.4)" }}
               whileTap={{ scale: 0.97 }}
               className="px-8 py-4 bg-brand-teal text-brand-navy font-bold rounded-lg text-center transition-colors duration-300"
@@ -227,6 +238,7 @@ const Hero: React.FC = () => {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }} className="pt-8 border-t border-brand-border my-8 flex flex-wrap gap-4 md:gap-8 text-sm text-brand-muted">
             <div className="flex items-center gap-2"><CheckCircle size={16} className="text-brand-teal" /><span>Embedded sponsorship teams</span></div>
             <div className="flex items-center gap-2"><CheckCircle size={16} className="text-brand-teal" /><span>Outcome-led design</span></div>
+            <div className="flex items-center gap-2"><CheckCircle size={16} className="text-brand-teal" /><span>Performance-aligned partnerships</span></div>
           </motion.div>
         </motion.div>
 
@@ -249,19 +261,6 @@ const Hero: React.FC = () => {
         </motion.div>
       </div>
 
-      <AnimatePresence>
-        {isBookingModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsBookingModalOpen(false)} className="absolute inset-0 bg-brand-navy/80 backdrop-blur-sm" />
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl shadow-2xl border border-brand-border">
-              <button onClick={() => setIsBookingModalOpen(false)} className="absolute top-4 right-4 z-10 p-2 text-brand-muted hover:text-brand-white bg-brand-navy/50 rounded-full border border-brand-border"><X size={20} /></button>
-              <div className="bg-brand-navy h-full overflow-y-auto">
-                <BookingFlow compact />
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
 
       <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute bottom-8 left-1/2 -translate-x-1/2 text-brand-teal/50"><ArrowDown size={32} /></motion.div>
     </section>

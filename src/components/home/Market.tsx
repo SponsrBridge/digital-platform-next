@@ -19,7 +19,7 @@ const industries: IndustryCard[] = [
     ]
   },
   {
-    name: "Finance & Professional",
+    name: "Finance & Professional Services",
     sub: "Fintech, Investment, Legal",
     icon: Briefcase,
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600",
@@ -29,7 +29,7 @@ const industries: IndustryCard[] = [
     ]
   },
   {
-    name: "Healthcare & Life Sci",
+    name: "Healthcare & Life Sciences",
     sub: "Pharma, MedTech, Biotech",
     icon: Activity,
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=600",
@@ -60,7 +60,7 @@ const industries: IndustryCard[] = [
   },
   {
     name: "HR & Workplace",
-    sub: "Talent, Employee Experience",
+    sub: "Talent, Employee Experience, Recruitment",
     icon: Users,
     image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=600",
     insights: [
@@ -233,7 +233,7 @@ const IndustryCardItem: React.FC<{ ind: IndustryCard }> = ({ ind }) => {
           className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-60"
           style={{ backgroundImage: `url(${ind.image})` }}
         />
-        <div className="absolute inset-0 bg-brand-navy/80 group-hover:bg-brand-navy/60 transition-colors duration-300" />
+        {/* <div className="absolute inset-0 bg-brand-navy/80 group-hover:bg-brand-navy/60 transition-colors duration-300" /> */}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/20 to-transparent opacity-90" />
       </div>
 
@@ -246,7 +246,7 @@ const IndustryCardItem: React.FC<{ ind: IndustryCard }> = ({ ind }) => {
             </div>
             <h3 className="text-xl font-bold text-brand-white group-hover:text-brand-teal transition-colors">{ind.name}</h3>
           </div>
-          <p className="text-sm text-brand-muted pl-13 border-l-2 border-brand-teal ml-5 mt-1">{ind.sub}</p>
+          <p className="text-sm text-brand-muted pl-4 border-l-2 border-brand-teal ml-5 mt-1">{ind.sub}</p>
         </div>
 
         {/* Dynamic Insights Section */}
