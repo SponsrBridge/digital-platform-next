@@ -43,8 +43,8 @@ export async function POST(request: NextRequest) {
 
     await transporter.sendMail({
       from: `"SponsrBridge Contact" <${process.env.SMTP_USER}>`,
-      // to: 'hello@sponsrbridge.io',
-      to: "arshaq0506@gmail.com",
+      to: "hello@sponsrbridge.io",
+      // to: "arshaq0506@gmail.com",
       replyTo: email,
       subject: `New Contact Form Submission from ${firstName} ${lastName}`,
       text: [
