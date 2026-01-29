@@ -190,7 +190,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-brand-navy transition-colors duration-300">
+    <section className="relative min-h-screen flex items-center pt-24 overflow-hidden bg-brand-navy transition-colors duration-300">
       <WaveBackground />
       <div className="container mx-auto px-4 sm:px-6 lg:px-24 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center h-full">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="lg:col-span-3 space-y-8">

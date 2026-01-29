@@ -9,7 +9,7 @@ const ContactSection: React.FC = () => {
   const USER_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return (
-    <section id="contact" className="py-24 bg-gradient-to-b from-brand-navy to-brand-section transition-colors duration-300 min-h-[900px] flex items-center">
+    <section id="contact" className="py-24 bg-gradient-to-b from-brand-navy to-brand-section transition-colors duration-300 min-h-[900px] flex items-center overflow-x-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-24">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
