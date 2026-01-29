@@ -194,7 +194,7 @@ const Hero: React.FC = () => {
       <WaveBackground />
       <div className="container mx-auto px-4 sm:px-6 lg:px-24 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center h-full">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="lg:col-span-3 space-y-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6x font-bold leading-tight text-brand-white">
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight leading-[1] text-brand-white">
             <span className="block mb-1 lg:mb-0">The</span>
             <span className="relative inline-grid grid-cols-1 grid-rows-1">
               <span className="invisible row-start-1 col-start-1 h-0 lg:h-auto whitespace-nowrap">{longestPhrase}</span>
@@ -202,7 +202,7 @@ const Hero: React.FC = () => {
             </span>
             <br />Behind <br className="hidden lg:block" /><span className="gradient-text">High-Performing B2B Conferences</span>
           </h1>
-          <p className="text-lg md:text-xl text-brand-text leading-relaxed max-w-2xl font-light">
+          <p className="text-lg text-brand-text leading-relaxed max-w-2xl font-light tracking-tight">
             SponsrBridge operates as your embedded sponsorship team, owning strategy, sales execution, and relationships under a single commercial mandate.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
