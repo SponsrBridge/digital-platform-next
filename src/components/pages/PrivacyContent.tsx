@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, FileText, Cookie } from 'lucide-react';
+import { Shield, FileText, Cookie, ChevronDown } from 'lucide-react';
 import { useLenis } from '@/components/providers/SmoothScrollProvider';
 
 const sections = [
@@ -23,6 +23,7 @@ const sections = [
 
 const PrivacyContent: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('intro');
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const lenis = useLenis();
 
   useEffect(() => {
@@ -49,6 +50,7 @@ const PrivacyContent: React.FC = () => {
   }, []);
 
   const scrollToSection = (id: string) => {
+    setMobileNavOpen(false);
     if (lenis) {
       lenis.scrollTo(`#${id}`, { offset: -100 });
       setActiveSection(id);
@@ -65,23 +67,58 @@ const PrivacyContent: React.FC = () => {
   return (
     <div className="pt-20 min-h-screen bg-brand-navy font-sans text-brand-text">
 
-      <section className="py-16 bg-brand-section border-b border-brand-border/30">
+      <section className="py-10 md:py-16 bg-brand-section border-b border-brand-border/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-24 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-brand-white mb-4">Privacy Policy</h1>
+            <h1 className="text-3xl md:text-5xl font-bold text-brand-white mb-4">Privacy Policy</h1>
             <p className="text-brand-teal font-medium mb-2">Including Cookie Policy</p>
             <p className="text-sm text-brand-muted">Last Updated: January 2025</p>
           </motion.div>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-24 py-12">
-        <div className="grid lg:grid-cols-12 gap-6 lg:gap-12 relative items-start">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-24 py-8 md:py-12">
+        <div className="grid lg:grid-cols-12 gap-4 md:gap-6 lg:gap-12 relative items-start">
 
+          {/* Mobile table of contents */}
+          <div className="lg:hidden col-span-full">
+            <div className="bg-brand-card border border-brand-border rounded-xl overflow-hidden shadow-xl">
+              <button
+                onClick={() => setMobileNavOpen(!mobileNavOpen)}
+                className="w-full flex items-center justify-between px-4 py-3 text-brand-white font-bold"
+              >
+                <span className="flex items-center gap-2">
+                  <FileText size={18} className="text-brand-teal" /> Contents
+                </span>
+                <ChevronDown
+                  size={18}
+                  className={`text-brand-teal transition-transform duration-200 ${mobileNavOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {mobileNavOpen && (
+                <nav className="px-4 pb-4 space-y-1">
+                  {sections.map((section) => (
+                    <button
+                      key={section.id}
+                      onClick={() => scrollToSection(section.id)}
+                      className={`block w-full text-left px-3 py-2 text-sm rounded transition-all duration-200 border-l-2 ${activeSection === section.id
+                          ? 'border-brand-teal text-brand-teal bg-brand-teal/10 font-semibold'
+                          : 'border-transparent text-brand-muted hover:text-brand-white hover:bg-brand-navy/50'
+                        }`}
+                    >
+                      {section.title}
+                    </button>
+                  ))}
+                </nav>
+              )}
+            </div>
+          </div>
+
+          {/* Desktop sidebar */}
           <div className="hidden lg:block lg:col-span-3 sticky top-28 self-start">
             <div className="bg-brand-card border border-brand-border rounded-xl p-6 overflow-y-auto max-h-[calc(100vh-8rem)] shadow-xl">
               <h3 className="text-brand-white font-bold mb-4 flex items-center gap-2">
@@ -104,10 +141,10 @@ const PrivacyContent: React.FC = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-9 space-y-16">
+          <div className="lg:col-span-9 space-y-10 md:space-y-16">
 
             <section id="intro" className="space-y-4 scroll-mt-28">
-              <h2 className="text-2xl font-bold text-brand-white flex items-center gap-2">
+              <h2 className="text-xl md:text-2xl font-bold text-brand-white flex items-center gap-2">
                 <span className="text-brand-teal">1.</span> Introduction
               </h2>
               <div className="prose prose-invert max-w-none text-brand-text leading-relaxed space-y-4">
@@ -127,13 +164,13 @@ const PrivacyContent: React.FC = () => {
             </section>
 
             <section id="collection" className="space-y-4 scroll-mt-28">
-              <h2 className="text-2xl font-bold text-brand-white flex items-center gap-2">
+              <h2 className="text-xl md:text-2xl font-bold text-brand-white flex items-center gap-2">
                 <span className="text-brand-teal">2.</span> Information We Collect
               </h2>
               <div className="space-y-6">
                 <p>We collect information that you provide directly to us, information collected automatically when you use our Website, and information from third-party sources.</p>
-                <div className="bg-brand-card p-6 rounded-xl border border-brand-border">
-                  <h3 className="text-xl font-bold text-brand-white mb-3">2.1 Information You Provide Directly</h3>
+                <div className="bg-brand-card p-4 sm:p-6 rounded-xl border border-brand-border">
+                  <h3 className="text-lg sm:text-xl font-bold text-brand-white mb-3">2.1 Information You Provide Directly</h3>
                   <p className="mb-4">We collect information you voluntarily provide when you:</p>
                   <ul className="list-disc pl-5 space-y-2 text-brand-muted">
                     <li>Fill out forms on our Website, including contact forms, consultation request forms, and newsletter subscription forms</li>
@@ -152,8 +189,8 @@ const PrivacyContent: React.FC = () => {
                     <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-brand-teal rounded-full" /> Conference or event details</div>
                   </div>
                 </div>
-                <div className="bg-brand-card p-6 rounded-xl border border-brand-border">
-                  <h3 className="text-xl font-bold text-brand-white mb-3">2.2 Information Collected Automatically</h3>
+                <div className="bg-brand-card p-4 sm:p-6 rounded-xl border border-brand-border">
+                  <h3 className="text-lg sm:text-xl font-bold text-brand-white mb-3">2.2 Information Collected Automatically</h3>
                   <p className="mb-4">When you access or use our Website, we automatically collect certain information, including:</p>
                   <ul className="list-disc pl-5 space-y-2 text-brand-muted">
                     <li>Device information (device type, operating system, unique device identifiers)</li>
@@ -179,11 +216,11 @@ const PrivacyContent: React.FC = () => {
             </section>
 
             <section id="use" className="space-y-4 scroll-mt-28">
-              <h2 className="text-2xl font-bold text-brand-white flex items-center gap-2">
+              <h2 className="text-xl md:text-2xl font-bold text-brand-white flex items-center gap-2">
                 <span className="text-brand-teal">3.</span> How We Use Your Information
               </h2>
               <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-                <div className="bg-brand-navy border border-brand-border p-5 rounded-lg">
+                <div className="bg-brand-navy border border-brand-border p-4 md:p-5 rounded-lg">
                   <h3 className="text-lg font-bold text-brand-white mb-3">3.1 Providing and Improving Services</h3>
                   <ul className="space-y-2 text-sm text-brand-muted">
                     <li>To respond to your enquiries and fulfil your requests</li>
@@ -193,7 +230,7 @@ const PrivacyContent: React.FC = () => {
                     <li>To improve and develop our Website and services</li>
                   </ul>
                 </div>
-                <div className="bg-brand-navy border border-brand-border p-5 rounded-lg">
+                <div className="bg-brand-navy border border-brand-border p-4 md:p-5 rounded-lg">
                   <h3 className="text-lg font-bold text-brand-white mb-3">3.2 Marketing and Communications</h3>
                   <ul className="space-y-2 text-sm text-brand-muted">
                     <li>To send you newsletters, articles, and industry insights (where you have opted in)</li>
@@ -201,7 +238,7 @@ const PrivacyContent: React.FC = () => {
                     <li>To personalise your experience and deliver relevant content</li>
                   </ul>
                 </div>
-                <div className="bg-brand-navy border border-brand-border p-5 rounded-lg">
+                <div className="bg-brand-navy border border-brand-border p-4 md:p-5 rounded-lg">
                   <h3 className="text-lg font-bold text-brand-white mb-3">3.3 Analytics and Performance</h3>
                   <ul className="space-y-2 text-sm text-brand-muted">
                     <li>To analyse Website usage and trends</li>
@@ -209,7 +246,7 @@ const PrivacyContent: React.FC = () => {
                     <li>To understand how visitors interact with our Website</li>
                   </ul>
                 </div>
-                <div className="bg-brand-navy border border-brand-border p-5 rounded-lg">
+                <div className="bg-brand-navy border border-brand-border p-4 md:p-5 rounded-lg">
                   <h3 className="text-lg font-bold text-brand-white mb-3">3.4 Legal and Compliance</h3>
                   <ul className="space-y-2 text-sm text-brand-muted">
                     <li>To comply with applicable laws, regulations, and legal processes</li>
@@ -222,7 +259,7 @@ const PrivacyContent: React.FC = () => {
             </section>
 
             <section id="sharing" className="space-y-4 scroll-mt-28">
-              <h2 className="text-2xl font-bold text-brand-white flex items-center gap-2">
+              <h2 className="text-xl md:text-2xl font-bold text-brand-white flex items-center gap-2">
                 <span className="text-brand-teal">4.</span> Sharing of Information
               </h2>
               <p>We do not sell your personal information to third parties. We may share your information in the following circumstances:</p>
@@ -246,9 +283,9 @@ const PrivacyContent: React.FC = () => {
               </div>
             </section>
 
-            <div className="grid md:grid-cols-2 gap-4 md:gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               <section id="retention" className="space-y-4 scroll-mt-28">
-                <h2 className="text-2xl font-bold text-brand-white flex items-center gap-2">
+                <h2 className="text-xl md:text-2xl font-bold text-brand-white flex items-center gap-2">
                   <span className="text-brand-teal">5.</span> Data Retention
                 </h2>
                 <p className="text-sm text-brand-muted">We retain your personal information for as long as necessary to fulfil the purposes for which it was collected.</p>
@@ -261,7 +298,7 @@ const PrivacyContent: React.FC = () => {
               </section>
 
               <section id="security" className="space-y-4 scroll-mt-28">
-                <h2 className="text-2xl font-bold text-brand-white flex items-center gap-2">
+                <h2 className="text-xl md:text-2xl font-bold text-brand-white flex items-center gap-2">
                   <span className="text-brand-teal">6.</span> Data Security
                 </h2>
                 <div className="bg-brand-card border border-brand-border p-4 rounded-xl">
@@ -278,11 +315,11 @@ const PrivacyContent: React.FC = () => {
             </div>
 
             <section id="rights" className="space-y-6 scroll-mt-28">
-              <h2 className="text-2xl font-bold text-brand-white flex items-center gap-2">
+              <h2 className="text-xl md:text-2xl font-bold text-brand-white flex items-center gap-2">
                 <span className="text-brand-teal">7.</span> Your Rights and Choices
               </h2>
-              <div className="border-l-4 border-brand-teal pl-6 py-2">
-                <h3 className="text-xl font-bold text-brand-white mb-2">7.1 California Residents (CCPA/CPRA)</h3>
+              <div className="border-l-4 border-brand-teal pl-4 md:pl-6 py-2">
+                <h3 className="text-lg md:text-xl font-bold text-brand-white mb-2">7.1 California Residents (CCPA/CPRA)</h3>
                 <p className="text-brand-muted mb-4 text-sm">If you are a California resident, you have specific rights:</p>
                 <ul className="space-y-2 text-sm text-brand-text">
                   <li><strong>Right to Know:</strong> Request info about categories, sources, and purposes of collection.</li>
@@ -299,7 +336,7 @@ const PrivacyContent: React.FC = () => {
               <div>
                 <h3 className="text-lg font-bold text-brand-white mb-2">7.4 Exercising Your Rights</h3>
                 <p className="text-brand-muted text-sm mb-2">To exercise any of your rights, please contact us at:</p>
-                <div className="bg-brand-navy p-4 rounded border border-brand-border inline-block text-sm text-brand-white">
+                <div className="bg-brand-navy p-4 rounded border border-brand-border text-sm text-brand-white wrap-break-word">
                   Email: <a href="mailto:hello@sponsrbridge.io" className="text-brand-teal hover:underline">hello@sponsrbridge.io</a><br />
                   Phone: +1 (307) 213-1114<br />
                   Mail: SponsrBridge LLC, 1309 Coffeen Avenue STE 1200, Sheridan, Wyoming 82801
@@ -308,14 +345,14 @@ const PrivacyContent: React.FC = () => {
             </section>
 
             <section id="third-party" className="scroll-mt-28">
-              <h2 className="text-2xl font-bold text-brand-white mb-4"><span className="text-brand-teal">8.</span> Third-Party Links</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-brand-white mb-4"><span className="text-brand-teal">8.</span> Third-Party Links</h2>
               <p className="text-brand-muted text-sm">Our Website may contain links to third-party websites not operated by us. This Privacy Policy does not apply to those third-party sites. We encourage you to review their privacy policies.</p>
             </section>
 
-            <section id="cookies" className="bg-brand-card/30 p-8 rounded-2xl border border-brand-teal/20 scroll-mt-28">
-              <div className="flex items-center gap-3 mb-6">
+            <section id="cookies" className="bg-brand-card/30 p-4 sm:p-6 md:p-8 rounded-2xl border border-brand-teal/20 scroll-mt-28">
+              <div className="flex items-center gap-3 mb-4 md:mb-6">
                 <Cookie size={32} className="text-brand-teal" />
-                <h2 className="text-2xl font-bold text-brand-white">9. Cookie Policy</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-brand-white">9. Cookie Policy</h2>
               </div>
               <div className="space-y-6">
                 <div>
@@ -324,20 +361,20 @@ const PrivacyContent: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-brand-white mb-2">9.2 How We Use Cookies</h3>
-                  <ul className="grid md:grid-cols-2 gap-4">
-                    <li className="bg-brand-navy p-4 rounded border border-brand-border">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                    <li className="bg-brand-navy p-3 md:p-4 rounded border border-brand-border">
                       <strong className="text-brand-teal block mb-1">Essential Cookies</strong>
                       <span className="text-xs text-brand-muted">Necessary for proper function. Cannot be disabled.</span>
                     </li>
-                    <li className="bg-brand-navy p-4 rounded border border-brand-border">
+                    <li className="bg-brand-navy p-3 md:p-4 rounded border border-brand-border">
                       <strong className="text-brand-teal block mb-1">Analytics Cookies</strong>
                       <span className="text-xs text-brand-muted">Help us understand visitor interaction anonymously.</span>
                     </li>
-                    <li className="bg-brand-navy p-4 rounded border border-brand-border">
+                    <li className="bg-brand-navy p-3 md:p-4 rounded border border-brand-border">
                       <strong className="text-brand-teal block mb-1">Functional Cookies</strong>
                       <span className="text-xs text-brand-muted">Enable enhanced functionality and personalisation.</span>
                     </li>
-                    <li className="bg-brand-navy p-4 rounded border border-brand-border">
+                    <li className="bg-brand-navy p-3 md:p-4 rounded border border-brand-border">
                       <strong className="text-brand-teal block mb-1">Marketing Cookies</strong>
                       <span className="text-xs text-brand-muted">Used to build interest profiles and show relevant ads.</span>
                     </li>
@@ -349,24 +386,24 @@ const PrivacyContent: React.FC = () => {
                     <table className="w-full text-sm text-left">
                       <thead className="text-brand-teal uppercase bg-brand-navy/50">
                         <tr>
-                          <th className="px-4 py-2">Name</th>
-                          <th className="px-4 py-2">Provider</th>
-                          <th className="px-4 py-2">Purpose</th>
-                          <th className="px-4 py-2">Duration</th>
+                          <th className="px-2 md:px-4 py-2 text-xs md:text-sm">Name</th>
+                          <th className="px-2 md:px-4 py-2 text-xs md:text-sm">Provider</th>
+                          <th className="px-2 md:px-4 py-2 text-xs md:text-sm">Purpose</th>
+                          <th className="px-2 md:px-4 py-2 text-xs md:text-sm">Duration</th>
                         </tr>
                       </thead>
                       <tbody className="text-brand-muted divide-y divide-brand-border/30">
                         <tr>
-                          <td className="px-4 py-2 font-mono">_ga, _gid, _gat</td>
-                          <td className="px-4 py-2">Google Analytics</td>
-                          <td className="px-4 py-2">User distinction & throttle</td>
-                          <td className="px-4 py-2">Up to 2 years</td>
+                          <td className="px-2 md:px-4 py-2 text-xs md:text-sm font-mono break-all">_ga, _gid, _gat</td>
+                          <td className="px-2 md:px-4 py-2 text-xs md:text-sm">Google Analytics</td>
+                          <td className="px-2 md:px-4 py-2 text-xs md:text-sm">User distinction & throttle</td>
+                          <td className="px-2 md:px-4 py-2 text-xs md:text-sm">Up to 2 years</td>
                         </tr>
                         <tr>
-                          <td className="px-4 py-2 font-mono">cookie_consent</td>
-                          <td className="px-4 py-2">SponsrBridge</td>
-                          <td className="px-4 py-2">Stores preferences</td>
-                          <td className="px-4 py-2">1 year</td>
+                          <td className="px-2 md:px-4 py-2 text-xs md:text-sm font-mono break-all">cookie_consent</td>
+                          <td className="px-2 md:px-4 py-2 text-xs md:text-sm">SponsrBridge</td>
+                          <td className="px-2 md:px-4 py-2 text-xs md:text-sm">Stores preferences</td>
+                          <td className="px-2 md:px-4 py-2 text-xs md:text-sm">1 year</td>
                         </tr>
                       </tbody>
                     </table>
@@ -385,22 +422,22 @@ const PrivacyContent: React.FC = () => {
 
             <div className="space-y-8">
               <section id="children" className="scroll-mt-28">
-                <h2 className="text-xl font-bold text-brand-white mb-2"><span className="text-brand-teal">10.</span> Children&apos;s Privacy</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-brand-white mb-2"><span className="text-brand-teal">10.</span> Children&apos;s Privacy</h2>
                 <p className="text-brand-muted text-sm">Our services are not directed to individuals under 18. We do not knowingly collect data from children.</p>
               </section>
               <section id="transfers" className="scroll-mt-28">
-                <h2 className="text-xl font-bold text-brand-white mb-2"><span className="text-brand-teal">11.</span> International Data Transfers</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-brand-white mb-2"><span className="text-brand-teal">11.</span> International Data Transfers</h2>
                 <p className="text-brand-muted text-sm">SponsrBridge is based in the United States. By using our Website, you consent to the transfer, storage, and processing of your information in the US.</p>
               </section>
               <section id="changes" className="scroll-mt-28">
-                <h2 className="text-xl font-bold text-brand-white mb-2"><span className="text-brand-teal">12.</span> Changes to This Privacy Policy</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-brand-white mb-2"><span className="text-brand-teal">12.</span> Changes to This Privacy Policy</h2>
                 <p className="text-brand-muted text-sm">We may update this policy periodically. We will notify you by posting the updated policy on this page with a new &ldquo;Last Updated&rdquo; date.</p>
               </section>
             </div>
 
-            <section id="contact" className="bg-brand-navy border border-brand-border p-8 rounded-2xl scroll-mt-28">
-              <h2 className="text-2xl font-bold text-brand-white mb-4">13. Contact Us</h2>
-              <p className="text-brand-muted mb-6">If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us at:</p>
+            <section id="contact" className="bg-brand-navy border border-brand-border p-4 sm:p-6 md:p-8 rounded-2xl scroll-mt-28">
+              <h2 className="text-xl md:text-2xl font-bold text-brand-white mb-4">13. Contact Us</h2>
+              <p className="text-brand-muted mb-4 md:mb-6">If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us at:</p>
               <div className="space-y-2 text-brand-white">
                 <p className="font-bold">SponsrBridge LLC</p>
                 <p className="text-sm text-brand-muted">Attn: Privacy Enquiries</p>

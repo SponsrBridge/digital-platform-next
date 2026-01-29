@@ -43,6 +43,7 @@ export default async function HomePage() {
     readTime: a.readTime || '5 min read',
     image: a.image || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800',
     slug: a.slug?.current || '',
+    isFeatured: a.isFeatured || false,
   }));
 
   return (

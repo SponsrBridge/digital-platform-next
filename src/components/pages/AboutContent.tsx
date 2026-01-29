@@ -375,7 +375,7 @@ const AboutContent: React.FC = () => {
 
               <p>We knew there had to be a better model — one that gave conference organisers true commercial partnership, not just another vendor relationship.</p>
 
-              <p className="text-2xl font-bold text-brand-teal pt-4 italic">So in 2025, we built it.</p>
+              <p className="text-2xl md:text-3xl font-bold text-brand-teal pt-4 italic">So in 2025, we built it.</p>
 
               <p className="font-medium text-brand-white">SponsrBridge exists to be the sponsorship team that conference organisers deserve: embedded, accountable, and genuinely invested in mutual success. We win when you win. It's that simple.</p>
             </div>
@@ -470,13 +470,13 @@ const AboutContent: React.FC = () => {
                 onClick={() => setActiveDiff('traditional')}
                 className={`px-4 md:px-6 py-3 rounded-full text-sm font-bold transition-colors relative z-10 whitespace-nowrap ${activeDiff === 'traditional' ? 'text-brand-navy' : 'text-brand-muted hover:text-brand-white'}`}
               >
-                The Old Way
+                Old Way
               </button>
               <button
                 onClick={() => setActiveDiff('sponsrbridge')}
                 className={`px-4 md:px-6 py-3 rounded-full text-sm font-bold transition-colors relative z-10 whitespace-nowrap ${activeDiff === 'sponsrbridge' ? 'text-brand-navy' : 'text-brand-muted hover:text-brand-white'}`}
               >
-                The SponsrBridge Way
+                SponsrBridge Way
               </button>
             </div>
           </div>
@@ -579,7 +579,7 @@ const AboutContent: React.FC = () => {
 
                     <div className="flex flex-col justify-center items-center text-center bg-brand-card/50 p-8 rounded-2xl border border-brand-border backdrop-blur-sm">
                       <Award className="w-16 h-16 text-brand-teal mb-6" />
-                      <p className="text-2xl font-bold text-brand-white mb-8 italic leading-relaxed">
+                      <p className="text-xl md:text-2xl font-bold text-brand-white mb-8 italic leading-relaxed">
                         "We built SponsrBridge to be the partner we wished existed when we were in your position."
                       </p>
                       <button
@@ -738,22 +738,69 @@ const AboutContent: React.FC = () => {
       </section>
 
       {/* SECTION 8: CLOSING CTA */}
-      <section className="py-24 bg-gradient-to-r from-brand-blue to-brand-teal text-brand-navy relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-24 text-center max-w-4xl">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to Build a Sponsorship Engine That Actually Works?</h2>
-          <p className="text-xl font-medium mb-10 opacity-90 leading-relaxed max-w-2xl mx-auto">
+      <section className="py-24 bg-brand-navy text-brand-white relative z-10 overflow-hidden">
+        {/* Animated grid */}
+        <div className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(var(--accent-rgb),1) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--accent-rgb),1) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
+
+        {/* Floating orbs */}
+        <motion.div
+          animate={{ x: [0, 40, 0], y: [0, -30, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-brand-teal/15 blur-[100px]"
+        />
+        <motion.div
+          animate={{ x: [0, -30, 0], y: [0, 40, 0], scale: [1.1, 0.9, 1.1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-brand-blue/20 blur-[100px]"
+        />
+        <motion.div
+          animate={{ x: [0, 20, -20, 0], y: [0, -20, 10, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-brand-teal/10 blur-[120px]"
+        />
+
+        {/* Floating dots */}
+        {[
+          { top: '15%', left: '10%', dur: 6, delay: 0 },
+          { top: '70%', left: '85%', dur: 7, delay: 1 },
+          { top: '30%', left: '75%', dur: 5, delay: 2 },
+          { top: '80%', left: '20%', dur: 8, delay: 0.5 },
+          { top: '50%', left: '50%', dur: 9, delay: 1.5 },
+          { top: '20%', left: '60%', dur: 6.5, delay: 3 },
+        ].map((dot, i) => (
+          <motion.div
+            key={i}
+            animate={{ y: [-10, 10, -10], opacity: [0.3, 0.7, 0.3] }}
+            transition={{ duration: dot.dur, repeat: Infinity, ease: "easeInOut", delay: dot.delay }}
+            className="absolute w-1.5 h-1.5 rounded-full bg-brand-teal"
+            style={{ top: dot.top, left: dot.left }}
+          />
+        ))}
+
+        {/* Horizontal glow lines */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-teal/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-blue/30 to-transparent" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-24 text-center max-w-4xl relative z-10">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-brand-white">Ready to Build a Sponsorship Engine That Actually Works?</h2>
+          <p className="text-lg md:text-xl font-medium mb-10 text-brand-text leading-relaxed max-w-2xl mx-auto">
             Let's start with a conversation. No pitch decks, no pressure — just a practical discussion about your conference, your sponsorship challenges, and whether SponsrBridge is the right fit.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={() => router.push('/contact')}
-              className="px-8 py-4 bg-brand-navy text-brand-teal font-bold rounded-lg text-lg hover:bg-brand-navy/90 transition-colors"
+              className="px-8 py-4 bg-brand-teal text-brand-navy font-bold rounded-lg text-lg hover:brightness-110 shadow-[0_0_30px_rgba(var(--accent-rgb),0.3)] transition-all"
             >
               Book a Strategy Call
             </button>
             <button
               onClick={() => router.push('/services')}
-              className="px-8 py-4 border border-brand-navy text-brand-navy font-bold rounded-lg text-lg hover:bg-brand-navy/10 transition-colors flex items-center gap-2"
+              className="px-8 py-4 border-2 border-brand-teal/50 text-brand-teal font-bold rounded-lg text-lg hover:bg-brand-teal/10 transition-colors flex items-center gap-2"
             >
               See How We Work <ChevronRight size={20} />
             </button>

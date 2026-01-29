@@ -45,7 +45,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({ articles = fal
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-brand-white mb-2">Commercial Insights</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-white mb-2">Commercial Insights</h2>
             <p className="text-brand-muted">Practical analysis for conference organisers.</p>
           </motion.div>
           <button
@@ -63,7 +63,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({ articles = fal
           viewport={{ once: true }}
           className="grid md:grid-cols-3 gap-6 md:gap-8 mb-16"
         >
-          {articles.map((article, i) => (
+          {[...articles].sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0)).map((article, i) => (
             <motion.div
               key={i}
               variants={itemVariants}
@@ -94,13 +94,13 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({ articles = fal
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="bg-brand-card border border-brand-border rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8"
+          className="bg-brand-card border border-brand-border rounded-2xl p-4 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8"
         >
           <div>
-            <h3 className="text-2xl font-bold text-brand-white mb-2">Get insights delivered to your inbox</h3>
+            <h3 className="text-2xl md:text-3xl font-bold text-brand-white mb-2">Get insights delivered to your inbox</h3>
             <p className="text-brand-muted">Strategies to build predictable sponsorship revenue.</p>
           </div>
-          <form className="flex w-full md:w-auto gap-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex flex-col md:flex-row w-full md:w-auto gap-4" onSubmit={(e) => e.preventDefault()}>
             <input
               type="email"
               placeholder="Enter your email"
@@ -126,7 +126,7 @@ export const FAQSection: React.FC = () => {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold text-brand-white mb-12 text-center"
+          className="text-3xl md:text-4xl font-bold text-brand-white mb-12 text-center"
         >
           Frequently Asked Questions
         </motion.h2>

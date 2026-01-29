@@ -195,7 +195,7 @@ const ServicesContent: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-24">
           <div className="text-center mb-12">
             <span className="text-brand-teal text-xs font-bold uppercase tracking-widest">Our Services</span>
-            <h2 className="text-3xl font-bold text-brand-white mt-2">Three Ways to Work With SponsrBridge</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-white mt-2">Three Ways to Work With SponsrBridge</h2>
             <p className="text-brand-muted mt-4 max-w-2xl mx-auto">Every conference has different needs. We offer three distinct engagement models designed to deliver measurable growth.</p>
           </div>
 
@@ -490,7 +490,7 @@ const ServicesContent: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-24">
           <div className="text-center mb-16">
             <span className="text-brand-teal text-xs font-bold uppercase tracking-widest">Additional Services</span>
-            <h2 className="text-3xl font-bold text-brand-white mt-2">Complementary Revenue Services</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-white mt-2">Complementary Revenue Services</h2>
             <p className="text-brand-muted mt-4 max-w-2xl mx-auto">Beyond our core sponsorship services, we offer additional support to maximise overall commercial performance.</p>
           </div>
 
@@ -530,7 +530,7 @@ const ServicesContent: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-24">
           <div className="text-center mb-16">
             <span className="text-brand-teal text-xs font-bold uppercase tracking-widest">Our Process</span>
-            <h2 className="text-3xl font-bold text-brand-white mt-2">From First Conversation to Revenue Results</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-white mt-2">From First Conversation to Revenue Results</h2>
           </div>
 
           <div className="relative">
@@ -551,14 +551,14 @@ const ServicesContent: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.2 }}
-                  className="relative z-10 flex flex-col lg:items-center lg:text-center h-full"
+                  className="relative z-10 flex flex-col items-center lg:text-center h-full"
                 >
-                  <div className="w-16 h-16 bg-brand-navy border-2 border-brand-teal rounded-full flex items-center justify-center text-xl font-bold text-brand-white mb-6 shadow-lg">
+                  <div className="w-16 h-16 bg-brand-navy text-center border-2 border-brand-teal rounded-full flex items-center justify-center text-xl font-bold text-brand-white mb-6 shadow-lg">
                     {step.id}
                   </div>
                   <h3 className="text-lg font-bold text-brand-white mb-2">{step.title}</h3>
                   <p className="text-xs text-brand-teal font-bold uppercase mb-3">{step.duration || "Phase " + step.id}</p>
-                  <p className="text-sm text-brand-muted mb-4">{step.desc}</p>
+                  <p className="text-sm text-brand-muted mb-4 text-center">{step.desc}</p>
                   <div className="mt-auto bg-brand-card/50 p-6 rounded border border-brand-border text-xs text-brand-white w-full min-h-[72px] flex items-center justify-center">
                     <span className="text-brand-teal font-bold text-center w-40 capitalize line-clamp-2 min-h-[2lh]">{step.outcome}</span>
                   </div>
@@ -574,7 +574,7 @@ const ServicesContent: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-24">
           <div className="text-center mb-16">
             <span className="text-brand-teal text-xs font-bold uppercase tracking-widest">Compare Models</span>
-            <h2 className="text-3xl font-bold text-brand-white mt-2">Which Model Is Right for You?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-white mt-2">Which Model Is Right for You?</h2>
           </div>
 
           {/* Desktop Table */}
@@ -664,28 +664,75 @@ const ServicesContent: React.FC = () => {
       </section>
 
       {/* SECTION 9: CTA */}
-      <section className="py-24 bg-gradient-to-r from-brand-blue to-brand-teal text-brand-navy relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-24 text-center max-w-4xl">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to Transform Your Sponsorship Revenue?</h2>
-          <p className="text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto opacity-90">
+      <section className="py-24 bg-brand-navy text-brand-white relative z-10 overflow-hidden">
+        {/* Animated grid */}
+        <div className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(var(--accent-rgb),1) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--accent-rgb),1) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
+
+        {/* Floating orbs */}
+        <motion.div
+          animate={{ x: [0, 40, 0], y: [0, -30, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-brand-teal/15 blur-[100px]"
+        />
+        <motion.div
+          animate={{ x: [0, -30, 0], y: [0, 40, 0], scale: [1.1, 0.9, 1.1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-brand-blue/20 blur-[100px]"
+        />
+        <motion.div
+          animate={{ x: [0, 20, -20, 0], y: [0, -20, 10, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-brand-teal/10 blur-[120px]"
+        />
+
+        {/* Floating dots */}
+        {[
+          { top: '15%', left: '10%', dur: 6, delay: 0 },
+          { top: '70%', left: '85%', dur: 7, delay: 1 },
+          { top: '30%', left: '75%', dur: 5, delay: 2 },
+          { top: '80%', left: '20%', dur: 8, delay: 0.5 },
+          { top: '50%', left: '50%', dur: 9, delay: 1.5 },
+          { top: '20%', left: '60%', dur: 6.5, delay: 3 },
+        ].map((dot, i) => (
+          <motion.div
+            key={i}
+            animate={{ y: [-10, 10, -10], opacity: [0.3, 0.7, 0.3] }}
+            transition={{ duration: dot.dur, repeat: Infinity, ease: "easeInOut", delay: dot.delay }}
+            className="absolute w-1.5 h-1.5 rounded-full bg-brand-teal"
+            style={{ top: dot.top, left: dot.left }}
+          />
+        ))}
+
+        {/* Horizontal glow line */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-teal/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-blue/30 to-transparent" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-24 text-center max-w-4xl relative z-10">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-brand-white">Ready to Transform Your Sponsorship Revenue?</h2>
+          <p className="text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto text-brand-text leading-relaxed">
             Let's start with a conversation about your conference, your challenges, and your revenue goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={() => router.push('/contact')}
-              className="px-10 py-5 bg-brand-navy text-brand-teal font-bold rounded-xl text-lg hover:brightness-110 shadow-2xl transition-all w-full sm:w-auto"
+              className="px-10 py-5 bg-brand-teal text-brand-navy font-bold rounded-xl text-lg hover:brightness-110 shadow-[0_0_30px_rgba(var(--accent-rgb),0.3)] transition-all w-full sm:w-auto"
             >
               Book a Discovery Call
             </button>
             <button
               onClick={() => scrollToSection('model-01')}
-              className="px-10 py-5 bg-transparent border-2 border-brand-navy text-brand-navy font-bold rounded-xl text-lg hover:bg-brand-navy/10 transition-all w-full sm:w-auto flex items-center justify-center gap-2"
+              className="px-10 py-5 bg-transparent border-2 border-brand-teal/50 text-brand-teal font-bold rounded-xl text-lg hover:bg-brand-teal/10 transition-all w-full sm:w-auto flex items-center justify-center gap-2"
             >
               <Download size={20} /> Services Overview
             </button>
           </div>
-          <div className="mt-8 text-sm font-bold">
-            Prefer email? <a href="mailto:hello@sponsrbridge.io" className="underline hover:text-brand-white">hello@sponsrbridge.io</a>
+          <div className="mt-8 text-sm font-bold text-brand-muted">
+            Prefer email? <a href="mailto:hello@sponsrbridge.io" className="underline hover:text-brand-teal transition-colors">hello@sponsrbridge.io</a>
           </div>
         </div>
       </section>
