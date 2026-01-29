@@ -3,6 +3,7 @@
 import React from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Linkedin, Twitter } from 'lucide-react';
 import Logo from './Logo';
 import { useLenis } from '@/components/providers/SmoothScrollProvider';
@@ -119,10 +120,12 @@ const Footer: React.FC = () => {
           <span className="flex items-center tracking-widest text-[10px] gap-2">
             FORGED BY
             <a href="https://focaldive.io" target="_blank" rel="noopener noreferrer">
-              <img
+              <Image
                 src={isDark ? '/images/fd-dark.png' : '/images/fd-light.png'}
                 alt="FocalDive"
-                className="h-5 inline-block hover:opacity-80 transition-opacity"
+                width={80}
+                height={20}
+                className="h-5 w-auto inline-block hover:opacity-80 transition-opacity"
               />
             </a>
           </span>
