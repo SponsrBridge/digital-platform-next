@@ -24,26 +24,30 @@ const Logo: React.FC<LogoProps> = ({ variant = 'full', size = 'md', isLightMode 
   const { isDark } = useTheme();
   const resolved = isLightMode ?? !isDark;
   const dimensions = sizeMap[variant][size];
+  const sizeClass = classMap[variant][size];
+
+  const defaultSrc = resolved ? '/images/dark-label.png' : '/images/light-label.png';
+  const hoverSrc = resolved ? '/images/main-light-label.png' : '/images/main-dark-label.png';
 
   return (
-    <>
+    <span className="group inline-flex">
       <Image
-        src="/images/main-label.png"
+        src={defaultSrc}
         alt="SponsrBridge"
         width={dimensions.w}
         height={dimensions.h}
-        className={`${classMap[variant][size]} ${resolved ? '' : 'hidden'}`}
+        className={`${sizeClass} transition-opacity duration-300 group-hover:opacity-0`}
         priority
       />
       <Image
-        src="/images/light-label.png"
+        src={hoverSrc}
         alt="SponsrBridge"
         width={dimensions.w}
         height={dimensions.h}
-        className={`${classMap[variant][size]} ${resolved ? 'hidden' : ''}`}
+        className={`${sizeClass} absolute transition-opacity duration-300 opacity-0 group-hover:opacity-100`}
         priority
       />
-    </>
+    </span>
   );
 };
 

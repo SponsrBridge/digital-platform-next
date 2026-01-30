@@ -114,8 +114,8 @@ const Navbar: React.FC = () => {
           </motion.button>
 
           <motion.a
-            href="/contact"
-            onClick={(e) => handleNavClick(e, '/contact')}
+            href="#contact"
+            onClick={(e) => handleNavClick(e, '#contact')}
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(var(--accent-rgb),0.4)" }}
             whileTap={{ scale: 0.95 }}
             className="px-6 py-2.5 bg-brand-teal text-brand-navy font-semibold tracking-tighter  rounded-lg transition-colors whitespace-nowrap"

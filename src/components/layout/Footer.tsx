@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Linkedin, Twitter } from 'lucide-react';
+import { Linkedin, Twitter, CheckCircle2 } from 'lucide-react';
 import Logo from './Logo';
 import { useLenis } from '@/components/providers/SmoothScrollProvider';
 import { useTheme } from '@/components/providers/ThemeProvider';
@@ -14,6 +14,8 @@ const Footer: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { isDark } = useTheme();
+  const [footerEmail, setFooterEmail] = useState('');
+  const [footerStatus, setFooterStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'duplicate'>('idle');
 
   const scrollToHash = (hash: string) => {
     if (lenis) {
@@ -100,16 +102,50 @@ const Footer: React.FC = () => {
           {/* Subscribe */}
           <div>
             <h4 className="text-brand-white font-bold mb-6">Stay Updated</h4>
-            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Your email"
-                className="w-full bg-brand-navy border border-brand-border rounded px-4 py-2 text-sm text-brand-white focus:border-brand-teal focus:outline-none placeholder-brand-muted"
-              />
-              <button className="w-full bg-brand-teal text-brand-navy font-bold text-sm py-2 rounded-lg hover:bg-brand-accent-hover transition-colors">
-                Subscribe
-              </button>
-            </form>
+            {footerStatus === 'success' ? (
+              <div className="text-center py-4">
+                <CheckCircle2 size={32} className="text-brand-teal mx-auto mb-2" />
+                <p className="text-sm font-bold text-brand-white mb-1">You&apos;re Subscribed!</p>
+                <p className="text-xs text-brand-muted">Look out for our next insight in your inbox.</p>
+              </div>
+            ) : (
+              <form className="space-y-3" onSubmit={async (e) => {
+                e.preventDefault();
+                if (!footerEmail || footerStatus === 'loading') return;
+                setFooterStatus('loading');
+                try {
+                  const res = await fetch('/api/newsletter', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: footerEmail }),
+                  });
+                  if (res.status === 409) { setFooterStatus('duplicate'); return; }
+                  if (!res.ok) throw new Error();
+                  setFooterStatus('success');
+                  setFooterEmail('');
+                } catch {
+                  setFooterStatus('error');
+                }
+              }}>
+                <input
+                  type="email"
+                  required
+                  placeholder="Your email"
+                  value={footerEmail}
+                  onChange={(e) => setFooterEmail(e.target.value)}
+                  disabled={footerStatus === 'loading'}
+                  className="w-full bg-brand-navy lowercase border border-brand-border rounded px-4 py-2 text-sm text-brand-white focus:border-brand-teal focus:outline-none placeholder-brand-muted disabled:opacity-50"
+                />
+                <button
+                  disabled={footerStatus === 'loading'}
+                  className="w-full bg-brand-teal text-brand-navy font-bold text-sm py-2 rounded-lg hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
+                >
+                  {footerStatus === 'loading' ? 'Subscribing...' : 'Subscribe'}
+                </button>
+                {footerStatus === 'error' && <p className="text-red-400 text-xs">Something went wrong. Please try again.</p>}
+                {footerStatus === 'duplicate' && <p className="text-yellow-400 text-xs">This email is already subscribed.</p>}
+              </form>
+            )}
           </div>
         </div>
 
@@ -130,8 +166,8 @@ const Footer: React.FC = () => {
             </a>
           </span>
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-brand-text">Privacy</Link>
-            <Link href="/terms" className="hover:text-brand-text">Terms</Link>
+            <Link href="/privacy" className="hover:text-brand-teal">Privacy</Link>
+            <Link href="/terms" className="hover:text-brand-teal">Terms</Link>
           </div>
         </div>
       </div>

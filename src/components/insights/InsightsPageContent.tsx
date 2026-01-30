@@ -65,6 +65,8 @@ const InsightsPageContent: React.FC<InsightsPageContentProps> = ({
   const [allLoaded, setAllLoaded] = useState(initialArticles.length >= totalCount);
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [subError, setSubError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const [articles, setArticles] = useState(initialArticles);
 
   const handleLoadMore = async () => {
@@ -87,10 +89,31 @@ const InsightsPageContent: React.FC<InsightsPageContentProps> = ({
     }
   };
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (!email) return;
+
+    setSubmitting(true);
+    setSubError('');
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.status === 409) {
+        setSubError('This email is already subscribed.');
+        return;
+      }
+
+      if (!res.ok) throw new Error();
       setSubscribed(true);
+      setEmail('');
+    } catch {
+      setSubError('Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -277,12 +300,19 @@ const InsightsPageContent: React.FC<InsightsPageContentProps> = ({
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-brand-card border border-brand-border rounded-lg px-4 py-3 text-brand-white focus:border-brand-teal focus:outline-none transition-colors"
+                        disabled={submitting}
+                        className="w-full bg-brand-card border border-brand-border rounded-lg px-4 py-3 text-brand-white focus:border-brand-teal focus:outline-none transition-colors disabled:opacity-50"
                         placeholder="Enter your email address"
                       />
                     </div>
-                    <button className="w-full bg-brand-teal text-brand-navy font-bold py-3 rounded-lg hover:bg-brand-accent-hover transition-colors">
-                      Subscribe
+                    {subError && (
+                      <p className="text-red-400 text-sm">{subError}</p>
+                    )}
+                    <button
+                      disabled={submitting}
+                      className="w-full bg-brand-teal text-brand-navy font-bold py-3 rounded-lg hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
+                    >
+                      {submitting ? 'Subscribing...' : 'Subscribe'}
                     </button>
                   </form>
                 )}

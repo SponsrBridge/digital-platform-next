@@ -559,8 +559,8 @@ const ServicesContent: React.FC = () => {
                   <h3 className="text-lg font-bold text-brand-white mb-2">{step.title}</h3>
                   <p className="text-xs text-brand-teal font-bold uppercase mb-3">{step.duration || "Phase " + step.id}</p>
                   <p className="text-sm text-brand-muted mb-4 text-center">{step.desc}</p>
-                  <div className="mt-auto bg-brand-card/50 p-6 rounded border border-brand-border text-xs text-brand-white w-full min-h-[72px] flex items-center justify-center">
-                    <span className="text-brand-teal font-bold text-center w-40 capitalize line-clamp-2 min-h-[2lh]">{step.outcome}</span>
+                  <div className="mt-auto bg-brand-card/50 p-4 sm:p-6 rounded border border-brand-border text-xs text-brand-white w-full min-h-[80px] flex items-center justify-center">
+                    <span className="text-brand-teal font-bold text-center capitalize">{step.outcome}</span>
                   </div>
                 </motion.div>
               ))}

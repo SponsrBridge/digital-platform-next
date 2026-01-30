@@ -80,15 +80,15 @@ const PipelineVisual = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-2 h-full">
+      <div className="flex md:grid md:grid-cols-4 gap-3 md:gap-2 h-full overflow-x-auto md:overflow-x-visible pb-2 md:pb-0 snap-x snap-mandatory md:snap-none scrollbar-hide">
         {stages.map((stage, index) => (
-          <div key={stage.id} className="flex flex-col h-full relative">
+          <div key={stage.id} className="flex flex-col h-full relative min-w-40 md:min-w-0 snap-center shrink-0">
             <div className="flex items-center gap-2 mb-4 opacity-70">
               <stage.icon size={14} className={stage.color} />
-              <span className="text-[10px] font-bold text-brand-muted uppercase hidden sm:block">{stage.label}</span>
+              <span className="text-[10px] font-bold text-brand-muted uppercase">{stage.label}</span>
             </div>
 
-            <div className="flex-grow bg-brand-navy/30 rounded-lg border border-brand-border/30 relative p-2">
+            <div className="grow bg-brand-navy/30 rounded-lg border border-brand-border/30 relative p-2">
               <AnimatePresence>
                 {deals.filter(d => d.stage === index).map(deal => (
                   <motion.div
@@ -192,7 +192,7 @@ const Hero: React.FC = () => {
       <WaveBackground />
       <div className="container mx-auto px-4 sm:px-6 lg:px-24 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center h-full">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="lg:col-span-3 space-y-8">
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1] text-brand-white">
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-12 md:leading-16 text-brand-white">
             <span className="block mb-1 lg:mb-0">The</span>
             <span className="relative inline-grid grid-cols-1 grid-rows-1">
               <span className="invisible row-start-1 col-start-1 h-0 lg:h-auto whitespace-nowrap">{longestPhrase}</span>

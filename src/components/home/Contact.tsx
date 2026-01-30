@@ -1,12 +1,29 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Globe } from 'lucide-react';
-import BookingFlow from './BookingFlow';
+import Cal, { getCalApi } from '@calcom/embed-react';
+import { useTheme } from '@/components/providers/ThemeProvider';
 
 const ContactSection: React.FC = () => {
   const USER_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const { isDark } = useTheme();
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: '45min' });
+      cal('ui', {
+        cssVarsPerTheme: {
+          light: { 'cal-brand': '#01babf' },
+          dark: { 'cal-brand': '#01babf' },
+        },
+        hideEventTypeDetails: false,
+        layout: 'column_view',
+        theme: isDark ? 'dark' : 'light',
+      });
+    })();
+  }, [isDark]);
 
   return (
     <section id="contact" className="py-24 bg-gradient-to-b from-brand-navy to-brand-section transition-colors duration-300 min-h-[900px] flex items-center overflow-x-hidden">
@@ -30,7 +47,12 @@ const ContactSection: React.FC = () => {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>
-            <BookingFlow />
+            <Cal
+              namespace="45min"
+              calLink="sponsrbridge/45min"
+              style={{ width: '100%', height: '100%', overflow: 'scroll' }}
+              config={{ layout: 'column_view', theme: isDark ? 'dark' : 'light' }}
+            />
           </motion.div>
         </div>
       </div>

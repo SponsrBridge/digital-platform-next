@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowRight, Plus, Minus, Send } from 'lucide-react';
+import { ArrowRight, Plus, Minus, Send, CheckCircle2 } from 'lucide-react';
 import { Article } from '@/types';
 import { faqs } from '@/lib/faq-data';
 
@@ -35,6 +35,8 @@ interface InsightsSectionProps {
 
 export const InsightsSection: React.FC<InsightsSectionProps> = ({ articles = fallbackArticles }) => {
   const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'duplicate'>('idle');
 
   return (
     <section id="insights" className="py-24 bg-brand-navy transition-colors duration-300">
@@ -96,20 +98,62 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({ articles = fal
           transition={{ delay: 0.2 }}
           className="bg-brand-card border border-brand-border rounded-2xl p-4 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8"
         >
-          <div>
-            <h3 className="text-2xl md:text-3xl font-bold text-brand-white mb-2">Get insights delivered to your inbox</h3>
-            <p className="text-brand-muted">Strategies to build predictable sponsorship revenue.</p>
-          </div>
-          <form className="flex flex-col md:flex-row w-full md:w-auto gap-4" onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="bg-brand-navy border border-brand-border text-brand-white px-4 py-3 rounded w-full md:w-80 focus:outline-none focus:border-brand-teal transition-colors placeholder-brand-muted"
-            />
-            <button className="bg-brand-teal text-brand-navy font-bold px-6 py-3 rounded-lg hover:bg-brand-accent-hover transition-colors">
-              Subscribe
-            </button>
-          </form>
+          {status === 'success' ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="text-center py-6 w-full"
+            >
+              <CheckCircle2 size={48} className="text-brand-teal mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-brand-white mb-2">You&apos;re Subscribed!</h3>
+              <p className="text-brand-muted">Thanks for subscribing. Look out for our next insight in your inbox.</p>
+            </motion.div>
+          ) : (
+            <>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-brand-white mb-2">Get insights delivered to your inbox</h3>
+                <p className="text-brand-muted">Strategies to build predictable sponsorship revenue.</p>
+              </div>
+              <div className="w-full md:w-auto">
+                <form className="flex flex-col md:flex-row w-full md:w-auto gap-4" onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!email || status === 'loading') return;
+                  setStatus('loading');
+                  try {
+                    const res = await fetch('/api/newsletter', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ email }),
+                    });
+                    if (res.status === 409) { setStatus('duplicate'); return; }
+                    if (!res.ok) throw new Error();
+                    setStatus('success');
+                    setEmail('');
+                  } catch {
+                    setStatus('error');
+                  }
+                }}>
+                  <input
+                    type="email"
+                    required
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={status === 'loading'}
+                    className="bg-brand-navy border lowercase border-brand-border text-brand-white px-4 py-3 rounded w-full md:w-80 focus:outline-none focus:border-brand-teal transition-colors placeholder-brand-muted disabled:opacity-50"
+                  />
+                  <button
+                    disabled={status === 'loading'}
+                    className="bg-brand-teal text-brand-navy font-bold px-6 py-3 rounded-lg hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
+                  >
+                    {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+                  </button>
+                </form>
+                {status === 'error' && <p className="text-red-400 text-sm mt-2">Something went wrong. Please try again.</p>}
+                {status === 'duplicate' && <p className="text-yellow-400 text-sm mt-2">This email is already subscribed.</p>}
+              </div>
+            </>
+          )}
         </motion.div>
       </div>
     </section>
