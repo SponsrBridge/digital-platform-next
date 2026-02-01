@@ -134,3 +134,31 @@ html.lenis body {
 .lenis.lenis-stopped {
   overflow: hidden;
 }
+
+/* ============================================
+   CAL.COM MODAL MOBILE FIX
+   ============================================ */
+
+/* Fix Cal.com popup scrolling on mobile */
+[data-cal-namespace] ~ div,
+.cal-com-modal-container {
+  touch-action: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain;
+}
+
+[data-cal-namespace] ~ div iframe,
+.cal-com-modal-container iframe {
+  touch-action: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* Ensure modal backdrop allows interaction with modal content */
+.cal-embed-modal-backdrop {
+  touch-action: none;
+}
+
+.cal-embed-modal-backdrop > div {
+  touch-action: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}

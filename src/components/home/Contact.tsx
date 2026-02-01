@@ -2,48 +2,47 @@
 
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Globe } from 'lucide-react';
-import Cal, { getCalApi } from '@calcom/embed-react';
-import { useTheme } from '@/components/providers/ThemeProvider';
+import { CheckCircle2, Globe, Calendar } from 'lucide-react';
+import { getCalApi } from '@calcom/embed-react';
 
 const ContactSection: React.FC = () => {
   const USER_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const { isDark } = useTheme();
 
   useEffect(() => {
     (async function () {
       const cal = await getCalApi({ namespace: '45min' });
       cal('ui', {
         cssVarsPerTheme: {
-          light: {
-            'cal-brand': '#0d9488',
-            'cal-bg': '#ffffff',
-            'cal-bg-emphasis': '#f8fafc',
-            'cal-border': '#e5e7eb',
-            'cal-border-emphasis': '#d1d5db',
-            'cal-text': '#374151',
-            'cal-text-emphasis': '#111827',
-            'cal-text-muted': '#4b5563',
-          },
-          dark: {
-            'cal-brand': '#79f3de',
-            'cal-bg': '#11151c',
-            'cal-bg-emphasis': '#161b22',
-            'cal-border': '#1f2937',
-            'cal-border-emphasis': '#374151',
-            'cal-text': '#e6edf3',
-            'cal-text-emphasis': '#ffffff',
-            'cal-text-muted': '#9ca3af',
-            'cal-bg-subtle': '#0d1117',
-            'cal-bg-muted': '#161b22',
-          },
+          light: { 'cal-brand': '#01babf' },
+          dark: { 'cal-brand': '#01babf' },
         },
         hideEventTypeDetails: false,
-        layout: 'column_view',
-        theme: isDark ? 'dark' : 'light',
+        layout: 'month_view',
+        styles: {
+          branding: { brandColor: '#01babf' },
+        },
+      });
+
+      // Fix mobile scrolling issues
+      cal('on', {
+        action: 'linkReady',
+        callback: () => {
+          const style = document.createElement('style');
+          style.innerHTML = `
+            .cal-com-modal-container, 
+            [data-cal-namespace="45min"] ~ div {
+              touch-action: auto !important;
+              -webkit-overflow-scrolling: touch !important;
+            }
+            .cal-com-modal-container iframe {
+              touch-action: auto !important;
+            }
+          `;
+          document.head.appendChild(style);
+        },
       });
     })();
-  }, [isDark]);
+  }, []);
 
   return (
     <section id="contact" className="py-16 md:py-24 bg-gradient-to-b from-brand-navy to-brand-section transition-colors duration-300 overflow-x-hidden">
@@ -68,15 +67,16 @@ const ContactSection: React.FC = () => {
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="w-full max-w-7xl mx-auto">
-          <div className='border border-brand-teal rounded-2xl p-2'>
-            <Cal
-              namespace="45min"
-              calLink="sponsrbridge/45min"
-              style={{ width: '100%', }}
-              config={{ layout: 'column_view', theme: isDark ? 'dark' : 'light' }}
-            />
-          </div>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="flex justify-center">
+          <button
+            data-cal-namespace="45min"
+            data-cal-link="sponsrbridge/45min"
+            data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-brand-teal hover:bg-brand-teal/90 text-brand-navy font-bold text-lg rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-brand-teal/25"
+          >
+            <Calendar className="w-6 h-6" />
+            <span>Book Your Strategy Call</span>
+          </button>
         </motion.div>
       </div>
     </section>
