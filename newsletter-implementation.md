@@ -1,4 +1,4 @@
-# Newsletter Subscription — Sanity Implementation Guide
+# Newsletter Subscription - Sanity Implementation Guide
 
 ## 1. Sanity Studio Schema
 
@@ -7,32 +7,32 @@ Create a new schema file in your Sanity Studio project:
 **File:** `schemas/newsletterSubscription.ts`
 
 ```ts
-import { defineType, defineField } from 'sanity';
-import { EnvelopeIcon } from '@sanity/icons';
+import { defineType, defineField } from "sanity";
+import { EnvelopeIcon } from "@sanity/icons";
 
 export default defineType({
-  name: 'newsletterSubscription',
-  title: 'Newsletter Subscription',
-  type: 'document',
+  name: "newsletterSubscription",
+  title: "Newsletter Subscription",
+  type: "document",
   icon: EnvelopeIcon,
   fields: [
     defineField({
-      name: 'email',
-      title: 'Email',
-      type: 'string',
+      name: "email",
+      title: "Email",
+      type: "string",
       validation: (Rule) => Rule.required().email(),
     }),
     defineField({
-      name: 'subscribedAt',
-      title: 'Subscribed At',
-      type: 'datetime',
+      name: "subscribedAt",
+      title: "Subscribed At",
+      type: "datetime",
       readOnly: true,
     }),
   ],
   preview: {
     select: {
-      title: 'email',
-      subtitle: 'subscribedAt',
+      title: "email",
+      subtitle: "subscribedAt",
     },
   },
 });
@@ -43,7 +43,7 @@ export default defineType({
 In your Sanity Studio's `schemaTypes/index.ts` (or wherever schemas are aggregated), add:
 
 ```ts
-import newsletterSubscription from './newsletterSubscription';
+import newsletterSubscription from "./newsletterSubscription";
 
 export const schemaTypes = [
   // ...existing schemas
@@ -79,27 +79,27 @@ export async function POST(request: NextRequest) {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
         { success: false, message: "Valid email is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (!sanityWriteClient) {
       return NextResponse.json(
         { success: false, message: "Service unavailable" },
-        { status: 503 }
+        { status: 503 },
       );
     }
 
     // Check for duplicate subscription
     const existing = await sanityWriteClient.fetch(
       `count(*[_type == "newsletterSubscription" && email == $email])`,
-      { email }
+      { email },
     );
 
     if (existing > 0) {
       return NextResponse.json(
         { success: false, message: "Already subscribed" },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
     console.error("Newsletter subscription error:", error);
     return NextResponse.json(
       { success: false, message: "Failed to subscribe" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -130,31 +130,33 @@ Replace the newsletter `<form>` block (lines 103–112) with a stateful form tha
 
 ```tsx
 // Add these state variables inside the InsightsSection component:
-const [email, setEmail] = useState('');
-const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'duplicate'>('idle');
+const [email, setEmail] = useState("");
+const [status, setStatus] = useState<
+  "idle" | "loading" | "success" | "error" | "duplicate"
+>("idle");
 
 const handleSubscribe = async (e: React.FormEvent) => {
   e.preventDefault();
   if (!email) return;
 
-  setStatus('loading');
+  setStatus("loading");
   try {
-    const res = await fetch('/api/newsletter', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/newsletter", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
     });
 
     if (res.status === 409) {
-      setStatus('duplicate');
+      setStatus("duplicate");
       return;
     }
 
     if (!res.ok) throw new Error();
-    setStatus('success');
-    setEmail('');
+    setStatus("success");
+    setEmail("");
   } catch {
-    setStatus('error');
+    setStatus("error");
   }
 };
 ```
@@ -172,30 +174,40 @@ Then update the JSX:
     value={email}
     onChange={(e) => setEmail(e.target.value)}
     required
-    disabled={status === 'loading' || status === 'success'}
+    disabled={status === "loading" || status === "success"}
     className="bg-brand-navy border border-brand-border text-brand-white px-4 py-3 rounded w-full md:w-80 focus:outline-none focus:border-brand-teal transition-colors placeholder-brand-muted disabled:opacity-50"
   />
   <button
     type="submit"
-    disabled={status === 'loading' || status === 'success'}
+    disabled={status === "loading" || status === "success"}
     className="bg-brand-teal text-brand-navy font-bold px-6 py-3 rounded-lg hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
   >
-    {status === 'loading'
-      ? 'Subscribing...'
-      : status === 'success'
-        ? 'Subscribed!'
-        : 'Subscribe'}
+    {status === "loading"
+      ? "Subscribing..."
+      : status === "success"
+        ? "Subscribed!"
+        : "Subscribe"}
   </button>
-</form>
-{status === 'error' && (
-  <p className="text-red-400 text-sm mt-2">Something went wrong. Please try again.</p>
-)}
-{status === 'duplicate' && (
-  <p className="text-yellow-400 text-sm mt-2">This email is already subscribed.</p>
-)}
-{status === 'success' && (
-  <p className="text-green-400 text-sm mt-2">Thank you for subscribing!</p>
-)}
+</form>;
+{
+  status === "error" && (
+    <p className="text-red-400 text-sm mt-2">
+      Something went wrong. Please try again.
+    </p>
+  );
+}
+{
+  status === "duplicate" && (
+    <p className="text-yellow-400 text-sm mt-2">
+      This email is already subscribed.
+    </p>
+  );
+}
+{
+  status === "success" && (
+    <p className="text-green-400 text-sm mt-2">Thank you for subscribing!</p>
+  );
+}
 ```
 
 ---
@@ -208,15 +220,15 @@ Make sure your Next.js app's origin is allowed in Sanity's CORS settings:
 2. Select project **rt9k03al**
 3. Go to **API** > **CORS origins**
 4. Ensure `http://localhost:3000` (dev) and your production domain are listed
-5. **Credentials** can stay unchecked — the write token is used server-side only
+5. **Credentials** can stay unchecked - the write token is used server-side only
 
 ---
 
 ## Summary of Changes
 
-| Where | What |
-|---|---|
-| **Sanity Studio** | Add `newsletterSubscription` schema with `email` and `subscribedAt` fields |
-| **Sanity Studio** | Register the schema in `schemaTypes/index.ts` |
-| **Next.js** | Create `src/app/api/newsletter/route.ts` API route |
-| **Next.js** | Update `src/components/home/Resources.tsx` with form state and submission logic |
+| Where             | What                                                                            |
+| ----------------- | ------------------------------------------------------------------------------- |
+| **Sanity Studio** | Add `newsletterSubscription` schema with `email` and `subscribedAt` fields      |
+| **Sanity Studio** | Register the schema in `schemaTypes/index.ts`                                   |
+| **Next.js**       | Create `src/app/api/newsletter/route.ts` API route                              |
+| **Next.js**       | Update `src/components/home/Resources.tsx` with form state and submission logic |
