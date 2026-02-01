@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return { title: 'Post Not Found' };
   }
   return {
-    title: `${post.title} — SponsrBridge Insights`,
+    title: `${post.title} - SponsrBridge Insights`,
     description: post.excerpt || 'Read the latest insights from SponsrBridge.',
     alternates: { canonical: `/insights/${slug}` },
     openGraph: {

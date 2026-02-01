@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { firstName, lastName, email, phone, message, honeypot } = body;
 
-    // Honeypot check — bots will fill this hidden field
+    // Honeypot check - bots will fill this hidden field
     if (honeypot) {
       return NextResponse.json({ success: true });
     }
