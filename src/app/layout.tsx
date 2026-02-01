@@ -23,8 +23,8 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'SponsrBridge — Conference Sponsorship Revenue Architecture',
-    template: '%s — SponsrBridge',
+    default: 'SponsrBridge - Conference Sponsorship Revenue Architecture',
+    template: '%s - SponsrBridge',
   },
   description: SITE_DESCRIPTION,
   icons: {

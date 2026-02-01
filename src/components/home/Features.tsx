@@ -227,7 +227,7 @@ export const ChallengesSection: React.FC = () => (
         </h2>
         <p className="text-brand-text mb-8 leading-relaxed">
           You can deliver an exceptional agenda, attract senior decision-makers, and still underperform commercially.
-          For most B2B conferences, sponsorship revenue falls short not because of weak demand — but because
+          For most B2B conferences, sponsorship revenue falls short not because of weak demand - but because
           sponsorship sales lack ownership, structure, and consistent execution.
         </p>
         <ul className="space-y-4 mb-8">
@@ -321,7 +321,7 @@ export const WhatWeDoSection: React.FC = () => (
 
       <div className="mt-16 text-center">
         <p className="text-lg text-brand-teal font-medium bg-brand-teal/10 inline-block px-6 py-3 rounded-full">
-          In short — we operate as your embedded sponsorship revenue team.
+          In short - we operate as your embedded sponsorship revenue team.
         </p>
       </div>
     </div>

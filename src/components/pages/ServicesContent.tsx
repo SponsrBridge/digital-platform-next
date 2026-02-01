@@ -160,10 +160,10 @@ const ServicesContent: React.FC = () => {
   ];
 
   const processSteps = [
-    { id: 1, title: "Discovery Call", duration: "45 mins", desc: "A focused conversation to understand your conference, current performance, and objectives. No pitch — just a practical discussion.", outcome: "Mutual understanding & alignment" },
+    { id: 1, title: "Discovery Call", duration: "45 mins", desc: "A focused conversation to understand your conference, current performance, and objectives. No pitch - just a practical discussion.", outcome: "Mutual understanding & alignment" },
     { id: 2, title: "Proposal", desc: "We develop a tailored proposal outlining the recommended engagement model, scope, deliverables, timeline, and commercial terms.", outcome: "Clear agreement on structure" },
     { id: 3, title: "Onboarding", desc: "Structured kickoff to immerse our team in your brand, audience, and commercial context. We gather all needed info to hit the ground running.", outcome: "Team fully briefed & ready" },
-    { id: 4, title: "Execution", desc: "Active delivery against the agreed scope — whether full ownership, sales execution, or advisory. Transparent progress tracking throughout.", outcome: "Revenue growth & development" },
+    { id: 4, title: "Execution", desc: "Active delivery against the agreed scope - whether full ownership, sales execution, or advisory. Transparent progress tracking throughout.", outcome: "Revenue growth & development" },
     { id: 5, title: "Reporting", desc: "Ongoing visibility into performance with structured reporting cadences. You always know where revenue stands and what's in the pipeline.", outcome: "Complete\ntransparency" },
   ];
 
@@ -201,7 +201,7 @@ const ServicesContent: React.FC = () => {
 
           <div className="grid md:grid-cols-3 gap-4 md:gap-6">
             {[
-              { id: 'model-01', icon: Shield, title: 'Full-Service Management', desc: 'Complete commercial ownership — we operate as your embedded sponsorship revenue team.' },
+              { id: 'model-01', icon: Shield, title: 'Full-Service Management', desc: 'Complete commercial ownership - we operate as your embedded sponsorship revenue team.' },
               { id: 'model-02', icon: Target, title: 'Sales Execution Partnership', desc: 'Dedicated sales execution for organisers with defined strategy needing experienced closers.' },
               { id: 'model-03', icon: Search, title: 'Strategic Commercial Advisory', desc: 'Senior-level guidance and market intelligence for teams with in-house sales capability.' }
             ].map((card, i) => (
@@ -235,7 +235,7 @@ const ServicesContent: React.FC = () => {
               <p className="text-xl text-brand-teal font-medium italic">Your Embedded Sponsorship Revenue Team</p>
             </div>
             <p className="text-brand-text leading-relaxed text-lg">
-              For conference organisers who want to hand over complete sponsorship responsibility to a dedicated commercial partner. We own the entire sponsorship function — from strategy and package design through pipeline development, sales execution, and sponsor relationship management.
+              For conference organisers who want to hand over complete sponsorship responsibility to a dedicated commercial partner. We own the entire sponsorship function - from strategy and package design through pipeline development, sales execution, and sponsor relationship management.
             </p>
 
             <div className="space-y-4">
@@ -321,7 +321,7 @@ const ServicesContent: React.FC = () => {
               <p className="text-xl text-brand-teal font-medium italic">Experienced Closers for Your Sponsorship Pipeline</p>
             </div>
             <p className="text-brand-text leading-relaxed text-lg">
-              For conference organisers who have a defined sponsorship strategy but need dedicated sales expertise to convert pipeline into revenue. We become your outsourced sales function — executing against your commercial framework with discipline and professionalism.
+              For conference organisers who have a defined sponsorship strategy but need dedicated sales expertise to convert pipeline into revenue. We become your outsourced sales function - executing against your commercial framework with discipline and professionalism.
             </p>
 
             <div className="space-y-4">

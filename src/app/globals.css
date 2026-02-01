@@ -6,23 +6,23 @@
 
 @theme {
   /* Brand Colors - dark mode defaults */
-  --color-brand-navy: #0D1117;
-  --color-brand-section: #11151C;
-  --color-brand-card: #161B22;
+  --color-brand-navy: #0d1117;
+  --color-brand-section: #11151c;
+  --color-brand-card: #161b22;
   --color-brand-blue: #145897;
-  --color-brand-teal: #79F3DE;
-  --color-brand-text: #E6EDF3;
-  --color-brand-white: #FFFFFF;
-  --color-brand-muted: #9CA3AF;
-  --color-brand-border: #1F2937;
-  --color-brand-success: #34D399;
-  --color-brand-error: #F87171;
-  --color-brand-elevated: #1C2128;
-  --color-brand-accent-hover: #5EECD0;
+  --color-brand-teal: #79f3de;
+  --color-brand-text: #e6edf3;
+  --color-brand-white: #ffffff;
+  --color-brand-muted: #9ca3af;
+  --color-brand-border: #1f2937;
+  --color-brand-success: #34d399;
+  --color-brand-error: #f87171;
+  --color-brand-elevated: #1c2128;
+  --color-brand-accent-hover: #5eecd0;
 
-  /* Font Families — overridden by next/font CSS variables */
-  --font-sans: var(--font-heading), 'Poppins', sans-serif;
-  --font-body: var(--font-body-font), 'Montserrat', sans-serif;
+  /* Font Families - overridden by next/font CSS variables */
+  --font-sans: var(--font-heading), "Poppins", sans-serif;
+  --font-body: var(--font-body-font), "Montserrat", sans-serif;
 }
 
 /* ============================================
@@ -40,19 +40,19 @@
    ============================================ */
 
 body.light-mode {
-  --color-brand-navy: #FFFFFF;
-  --color-brand-section: #F8FAFC;
-  --color-brand-card: #FFFFFF;
-  --color-brand-blue: #0284C7;
-  --color-brand-teal: #0D9488;
+  --color-brand-navy: #ffffff;
+  --color-brand-section: #f8fafc;
+  --color-brand-card: #ffffff;
+  --color-brand-blue: #0284c7;
+  --color-brand-teal: #0d9488;
   --color-brand-text: #374151;
   --color-brand-white: #111827;
-  --color-brand-muted: #4B5563;
-  --color-brand-border: #E5E7EB;
+  --color-brand-muted: #4b5563;
+  --color-brand-border: #e5e7eb;
   --color-brand-success: #059669;
-  --color-brand-error: #DC2626;
-  --color-brand-elevated: #F1F5F9;
-  --color-brand-accent-hover: #0F766E;
+  --color-brand-error: #dc2626;
+  --color-brand-elevated: #f1f5f9;
+  --color-brand-accent-hover: #0f766e;
 
   /* RGB variants for light mode */
   --accent-rgb: 13, 148, 136;
@@ -67,12 +67,19 @@ body.light-mode {
 body {
   background-color: var(--color-brand-navy);
   color: var(--color-brand-text);
-  font-family: var(--font-body-font), 'Montserrat', sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: var(--font-body-font), "Montserrat", sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading), 'Poppins', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), "Poppins", sans-serif;
   color: var(--color-brand-white);
 }
 
@@ -81,25 +88,38 @@ h1, h2, h3, h4, h5, h6 {
    ============================================ */
 
 .gradient-text {
-  background: linear-gradient(to right, var(--color-brand-teal), var(--color-brand-blue));
+  background: linear-gradient(
+    to right,
+    var(--color-brand-teal),
+    var(--color-brand-blue)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, var(--color-brand-teal), var(--color-brand-blue));
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-teal),
+    var(--color-brand-blue)
+  );
 }
 
 .gradient-bg-subtle {
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(var(--blue-rgb), 0.1));
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-rgb), 0.1),
+    rgba(var(--blue-rgb), 0.1)
+  );
 }
 
 /* ============================================
    LENIS SMOOTH SCROLL
    ============================================ */
 
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 

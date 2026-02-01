@@ -273,7 +273,7 @@ const InsightsPageContent: React.FC<InsightsPageContentProps> = ({
               <div>
                 <h2 className="text-3xl font-bold text-brand-white mb-4">Get Insights Delivered</h2>
                 <p className="text-brand-text text-lg mb-6 leading-relaxed">
-                  Join conference organisers who receive our latest thinking on sponsorship strategy, market trends, and revenue optimisation — delivered straight to your inbox.
+                  Join conference organisers who receive our latest thinking on sponsorship strategy, market trends, and revenue optimisation - delivered straight to your inbox.
                 </p>
                 <div className="flex items-center gap-2 text-sm text-brand-muted">
                   <CheckCircle2 size={16} className="text-brand-teal" /> No spam, ever. Unsubscribe anytime.

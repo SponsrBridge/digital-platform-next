@@ -11,7 +11,7 @@ import { SITE_URL, SITE_NAME } from '@/lib/constants';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'SponsrBridge — Conference Sponsorship Revenue Architecture',
+  title: 'SponsrBridge - Conference Sponsorship Revenue Architecture',
   description:
     'SponsrBridge is a strategic sponsorship revenue consultancy that operates as an embedded commercial team for B2B conferences.',
   alternates: { canonical: '/' },

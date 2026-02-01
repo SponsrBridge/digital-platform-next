@@ -114,7 +114,7 @@ const ContactContent: React.FC = () => {
               <div>
                 <motion.h2 variants={itemVariants} className="text-3xl font-bold text-brand-white mb-6">Get in Touch</motion.h2>
                 <motion.p variants={itemVariants} className="text-brand-text leading-relaxed font-light">
-                  Have a question about our services? Interested in exploring how SponsrBridge can support your conference? Reach out directly or use the form — we typically respond within one business day.
+                  Have a question about our services? Interested in exploring how SponsrBridge can support your conference? Reach out directly or use the form - we typically respond within one business day.
                 </motion.p>
               </div>
 
@@ -206,7 +206,7 @@ const ContactContent: React.FC = () => {
                   <motion.div key="form">
                     <h3 className="text-2xl font-bold text-brand-white mb-8">Send Us a Message</h3>
                     <form onSubmit={handleSubmit} className="space-y-6">
-                      {/* Honeypot — hidden from real users, bots will fill it */}
+                      {/* Honeypot - hidden from real users, bots will fill it */}
                       <input type="text" name="honeypot" value={formData.honeypot} onChange={handleChange} className="hidden" tabIndex={-1} autoComplete="off" />
                       <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                         <div className="space-y-2">

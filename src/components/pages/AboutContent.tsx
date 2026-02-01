@@ -269,30 +269,30 @@ const AboutContent: React.FC = () => {
   const beliefs = [
     {
       title: "Sponsorship Is a Revenue System, Not a Sales Function",
-      desc: "Most organisations treat sponsorship as ad hoc deal-making. We treat it as a commercial operating system — with strategy, structure, and repeatable processes that compound results over time."
+      desc: "Most organisations treat sponsorship as ad hoc deal-making. We treat it as a commercial operating system - with strategy, structure, and repeatable processes that compound results over time."
     },
     {
       title: "Alignment Creates Better Outcomes for Everyone",
-      desc: "When organisers, sponsors, and sales partners share aligned incentives, everyone wins. We structure our engagements so that our success is measured by your revenue growth — not by activity metrics or billable hours."
+      desc: "When organisers, sponsors, and sales partners share aligned incentives, everyone wins. We structure our engagements so that our success is measured by your revenue growth - not by activity metrics or billable hours."
     },
     {
       title: "Sponsors Deserve More Than Logo Placement",
-      desc: "Today's B2B sponsors invest in outcomes: qualified leads, executive access, thought leadership positioning. We design sponsorship programmes that deliver measurable value — which makes renewals a natural conversation, not a hard sell."
+      desc: "Today's B2B sponsors invest in outcomes: qualified leads, executive access, thought leadership positioning. We design sponsorship programmes that deliver measurable value - which makes renewals a natural conversation, not a hard sell."
     },
     {
       title: "Trust Is Built Through Transparency",
-      desc: "We believe you should always know exactly where your sponsorship revenue stands. No black boxes. No surprises. Full visibility into pipeline, performance, and projections — because that's how real partnerships work."
+      desc: "We believe you should always know exactly where your sponsorship revenue stands. No black boxes. No surprises. Full visibility into pipeline, performance, and projections - because that's how real partnerships work."
     },
     {
       title: "Long-Term Relationships Beat Short-Term Deals",
-      desc: "We're not here to close one deal and move on. We build sponsor relationships designed to grow across multiple event editions — because sustainable revenue comes from partners who return, expand, and advocate."
+      desc: "We're not here to close one deal and move on. We build sponsor relationships designed to grow across multiple event editions - because sustainable revenue comes from partners who return, expand, and advocate."
     }
   ];
 
   const values = [
     { icon: Target, title: "Commercial Rigour", desc: "We approach every engagement with discipline and precision. Strategy backed by data. Pricing grounded in market reality. Execution measured against clear targets." },
-    { icon: Eye, title: "Radical Transparency", desc: "No hidden agendas. No selective reporting. You see the full picture — pipeline status, deal progression, challenges, and opportunities." },
-    { icon: Shield, title: "Ownership Mentality", desc: "We operate as if your conference's success is our own — because our model ensures it is. We don't pass problems to your team; we solve them." },
+    { icon: Eye, title: "Radical Transparency", desc: "No hidden agendas. No selective reporting. You see the full picture - pipeline status, deal progression, challenges, and opportunities." },
+    { icon: Shield, title: "Ownership Mentality", desc: "We operate as if your conference's success is our own - because our model ensures it is. We don't pass problems to your team; we solve them." },
     { icon: Clock, title: "Long-Term Thinking", desc: "We build sponsor relationships and commercial systems designed to grow over years, not just close this quarter. Sustainable revenue beats short-term wins." },
     { icon: Handshake, title: "Professional Integrity", desc: "We represent your brand as if it were our own. Every sponsor conversation, every proposal, every negotiation reflects the quality and credibility you've built." },
   ];
@@ -337,7 +337,7 @@ const AboutContent: React.FC = () => {
             className="text-lg md:text-xl text-brand-text max-w-3xl mx-auto leading-relaxed font-light"
           >
             SponsrBridge was founded on a simple belief: conference sponsorship should be
-            a strategic revenue engine — not an afterthought.
+            a strategic revenue engine - not an afterthought.
           </motion.p>
 
           <motion.div
@@ -365,15 +365,15 @@ const AboutContent: React.FC = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-brand-white mb-2">We've Sat in Your Chair</h2>
 
             <div className="space-y-6 text-brand-text leading-relaxed text-lg font-light">
-              <p>SponsrBridge was born from frustration — the kind that only comes from years spent inside the B2B conference industry.</p>
+              <p>SponsrBridge was born from frustration - - the kind that only comes from years spent inside the B2B conference industry.</p>
 
-              <p>Before founding SponsrBridge, our partners spent over a decade on the front lines of conference sponsorship. We built sponsor programmes from scratch. We chased renewals while managing a dozen other priorities. We watched promising events underperform commercially — not because the product was weak, but because sponsorship never got the dedicated attention it deserved.</p>
+              <p>Before founding SponsrBridge, our partners spent over a decade on the front lines of conference sponsorship. We built sponsor programmes from scratch. We chased renewals while managing a dozen other priorities. We watched promising events underperform commercially - not because the product was weak, but because sponsorship never got the dedicated attention it deserved.</p>
 
               <p>We saw the same patterns repeat across the industry: talented event teams stretched too thin, sponsorship treated as a side function, and millions in potential revenue left on the table year after year.</p>
 
               <p>And we saw how the existing solutions failed. Agencies that sold inventory without understanding the event. Consultants who delivered strategies but disappeared before execution. Sales teams incentivised to close deals rather than build lasting sponsor relationships.</p>
 
-              <p>We knew there had to be a better model — one that gave conference organisers true commercial partnership, not just another vendor relationship.</p>
+              <p>We knew there had to be a better model - one that gave conference organisers true commercial partnership, not just another vendor relationship.</p>
 
               <p className="text-2xl md:text-3xl font-bold text-brand-teal pt-4 italic">So in 2025, we built it.</p>
 
@@ -605,7 +605,7 @@ const AboutContent: React.FC = () => {
               <span className="text-brand-teal text-xs font-bold uppercase tracking-widest px-2 py-1 bg-brand-teal/10 rounded inline-block">Our Expertise</span>
               <h2 className="text-3xl md:text-5xl font-bold text-brand-white mb-6">Decades of Experience.<br />One Focused Mission.</h2>
               <p className="text-brand-text text-lg leading-relaxed">
-                Our founding team brings deep, hands-on experience from across the B2B conference industry — not as observers, but as practitioners who have built, sold, and scaled sponsorship programmes globally.
+                Our founding team brings deep, hands-on experience from across the B2B conference industry - not as observers, but as practitioners who have built, sold, and scaled sponsorship programmes globally.
               </p>
               <div className="space-y-4 pt-4">
                 {[
@@ -721,7 +721,7 @@ const AboutContent: React.FC = () => {
               ))}
             </div>
             <p className="text-brand-muted text-sm italic border-l-2 border-brand-teal pl-4">
-              We understand that sponsorship dynamics vary by market — budget cycles, decision-making structures, and relationship expectations differ across regions. Our approach adapts to local realities while maintaining consistent commercial standards.
+              We understand that sponsorship dynamics vary by market - budget cycles, decision-making structures, and relationship expectations differ across regions. Our approach adapts to local realities while maintaining consistent commercial standards.
             </p>
           </motion.div>
 
@@ -789,7 +789,7 @@ const AboutContent: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-24 text-center max-w-4xl relative z-10">
           <h2 className="text-3xl md:text-5xl font-bold mb-6 text-brand-white">Ready to Build a Sponsorship Engine That Actually Works?</h2>
           <p className="text-lg md:text-xl font-medium mb-10 text-brand-text leading-relaxed max-w-2xl mx-auto">
-            Let's start with a conversation. No pitch decks, no pressure — just a practical discussion about your conference, your sponsorship challenges, and whether SponsrBridge is the right fit.
+            Let's start with a conversation. No pitch decks, no pressure - just a practical discussion about your conference, your sponsorship challenges, and whether SponsrBridge is the right fit.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
