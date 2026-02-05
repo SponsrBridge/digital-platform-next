@@ -50,7 +50,16 @@ export async function getPostBySlug(slug: string) {
   return sanityClient.fetch(
     `*[_type == "post" && slug.current == $slug][0] {
       ${postFields},
-      body
+      body[]{
+        ...,
+        _type == "image" => {
+          ...,
+          asset->{
+            _id,
+            url
+          }
+        }
+      }
     }`,
     { slug },
   );
