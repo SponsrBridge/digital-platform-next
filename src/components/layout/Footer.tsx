@@ -3,17 +3,14 @@
 import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Linkedin, Twitter, CheckCircle2 } from 'lucide-react';
 import Logo from './Logo';
 import { useLenis } from '@/components/providers/SmoothScrollProvider';
-import { useTheme } from '@/components/providers/ThemeProvider';
 
 const Footer: React.FC = () => {
   const lenis = useLenis();
   const router = useRouter();
   const pathname = usePathname();
-  const { isDark } = useTheme();
   const [footerEmail, setFooterEmail] = useState('');
   const [footerStatus, setFooterStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'duplicate'>('idle');
 
@@ -64,7 +61,7 @@ const Footer: React.FC = () => {
               The sponsorship engine behind high-performing B2B conferences.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-brand-muted hover:text-brand-teal transition-colors"><Linkedin size={20} /></a>
+              <a href="https://www.linkedin.com/company/sponsrbridge/" target='_blank' className="text-brand-muted hover:text-brand-teal transition-colors"><Linkedin size={20} /></a>
               <a href="#" className="text-brand-muted hover:text-brand-teal transition-colors"><Twitter size={20} /></a>
             </div>
           </div>
@@ -153,18 +150,6 @@ const Footer: React.FC = () => {
           <div className="flex items-center gap-2">
             <p>&copy; {new Date().getFullYear()} SponsrBridge LLC. All rights reserved.</p>
           </div>
-          <span className="flex items-center tracking-widest text-[10px] gap-2">
-            FORGED BY
-            <a href="https://focaldive.io" target="_blank" rel="noopener noreferrer">
-              <Image
-                src={isDark ? '/images/fd-dark.png' : '/images/fd-light.png'}
-                alt="FocalDive"
-                width={80}
-                height={20}
-                className="h-5 w-auto inline-block hover:opacity-80 transition-opacity"
-              />
-            </a>
-          </span>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-brand-teal">Privacy</Link>
             <Link href="/terms" className="hover:text-brand-teal">Terms</Link>
