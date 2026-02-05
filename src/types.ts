@@ -52,6 +52,7 @@ export interface Article {
   title: string;
   slug?: { current: string };
   excerpt: string;
+  metaDescription?: string;
   tag?: string;
   date?: string;
   readTime: string;

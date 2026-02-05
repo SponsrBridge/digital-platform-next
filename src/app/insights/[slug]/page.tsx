@@ -20,12 +20,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
   return {
     title: `${post.title} - SponsrBridge Insights`,
-    description: post.excerpt || 'Read the latest insights from SponsrBridge.',
+    description: post.metaDescription || post.excerpt || 'Read the latest insights from SponsrBridge.',
     alternates: { canonical: `/insights/${slug}` },
     openGraph: {
       type: 'article',
       title: post.title,
-      description: post.excerpt || '',
+      description: post.metaDescription || post.excerpt || '',
       publishedTime: post.date || undefined,
       authors: post.author ? [post.author] : undefined,
       images: post.image ? [{ url: post.image }] : undefined,
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: post.excerpt || '',
+      description: post.metaDescription || post.excerpt || '',
       images: post.image ? [post.image] : undefined,
     },
   };
@@ -51,7 +51,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
-    description: post.excerpt || '',
+    description: post.metaDescription || post.excerpt || '',
     image: post.image || undefined,
     datePublished: post.date || undefined,
     author: post.author

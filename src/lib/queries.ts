@@ -5,6 +5,7 @@ const postFields = `
   title,
   slug,
   excerpt,
+  metaDescription,
   tag,
   "date": publishedAt,
   readTime,
