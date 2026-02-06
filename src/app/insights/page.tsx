@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Insights & Perspectives',
   description: 'Practical strategies, market intelligence, and expert perspectives on building predictable sponsorship revenue for B2B conferences.',
   alternates: { canonical: '/insights' },
+  openGraph: {
+    images: ['/images/og/insights.png'],
+  },
 };
 
 function formatDate(dateString: string): string {

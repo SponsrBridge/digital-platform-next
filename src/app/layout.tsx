@@ -6,7 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import LiveChat from "@/components/chat/LiveChat";
 import JsonLd from "@/components/seo/JsonLd";
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, OG_IMAGE } from "@/lib/constants";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, OG_IMAGE, TWITTER_HANDLE } from "@/lib/constants";
 
 const poppins = Poppins({
   variable: "--font-heading",
@@ -40,6 +40,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     images: [OG_IMAGE],
+    site: TWITTER_HANDLE,
+    creator: TWITTER_HANDLE,
   },
   robots: {
     index: true,
@@ -64,7 +66,16 @@ const organizationJsonLd = {
   url: SITE_URL,
   logo: `${SITE_URL}/favicon.png`,
   description: SITE_DESCRIPTION,
-  sameAs: [],
+  sameAs: [
+    'https://www.linkedin.com/company/sponsrbridge/',
+    // Add additional social profiles as they become available
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'Sales',
+    email: 'hello@sponsrbridge.com',
+    availableLanguage: ['English'],
+  },
 };
 
 export default function RootLayout({

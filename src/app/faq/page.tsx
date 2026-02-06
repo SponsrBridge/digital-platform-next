@@ -5,9 +5,12 @@ import { faqs } from '@/lib/faq-data';
 import { SITE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'FAQ',
-  description: 'Frequently asked questions about SponsrBridge services, process, and how we help conference organisers scale sponsorship revenue.',
+  title: 'Conference Sponsorship FAQ - Pricing, Process & Results',
+  description: 'Common questions about sponsorship sales, pricing models, timelines, and ROI. Learn how SponsrBridge scales conference revenue for event organizers.',
   alternates: { canonical: '/faq' },
+  openGraph: {
+    images: ['/images/og/faq.png'],
+  },
 };
 
 const faqJsonLd = {
