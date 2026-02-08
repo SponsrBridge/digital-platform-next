@@ -6,42 +6,48 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import LiveChat from "@/components/chat/LiveChat";
 import JsonLd from "@/components/seo/JsonLd";
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, OG_IMAGE, TWITTER_HANDLE } from "@/lib/constants";
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_DESCRIPTION,
+  OG_IMAGE,
+  TWITTER_HANDLE
+} from "@/lib/constants";
 
 const poppins = Poppins({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"]
 });
 
 const montserrat = Montserrat({
   variable: "--font-body-font",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600"]
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'SponsrBridge - Conference Sponsorship Revenue Architecture',
-    template: '%s - SponsrBridge',
+    default: "SponsrBridge - Conference Sponsorship Revenue Architecture",
+    template: "%s - SponsrBridge"
   },
   description: SITE_DESCRIPTION,
   icons: {
     icon: "/favicon.png",
-    apple: "/favicon.png",
+    apple: "/favicon.png"
   },
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
+    type: "website",
+    locale: "en_US",
     siteName: SITE_NAME,
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: SITE_NAME }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: SITE_NAME }]
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     images: [OG_IMAGE],
     site: TWITTER_HANDLE,
-    creator: TWITTER_HANDLE,
+    creator: TWITTER_HANDLE
   },
   robots: {
     index: true,
@@ -49,37 +55,37 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
   },
   alternates: {
-    canonical: '/',
-  },
+    canonical: "/"
+  }
 };
 
 const organizationJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
+  "@context": "https://schema.org",
+  "@type": "Organization",
   name: SITE_NAME,
   url: SITE_URL,
   logo: `${SITE_URL}/favicon.png`,
   description: SITE_DESCRIPTION,
   sameAs: [
-    'https://www.linkedin.com/company/sponsrbridge/',
+    "https://www.linkedin.com/company/sponsrbridge/"
     // Add additional social profiles as they become available
   ],
   contactPoint: {
-    '@type': 'ContactPoint',
-    contactType: 'Sales',
-    email: 'hello@sponsrbridge.com',
-    availableLanguage: ['English'],
-  },
+    "@type": "ContactPoint",
+    contactType: "Sales",
+    email: "hello@sponsrbridge.com",
+    availableLanguage: ["English"]
+  }
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
