@@ -79,7 +79,7 @@ const organizationJsonLd = {
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "Sales",
-    email: "hello@sponsrbridge.com",
+    email: "hello@sponsrbridge.io",
     availableLanguage: ["English"]
   }
 };
